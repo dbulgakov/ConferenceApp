@@ -2,6 +2,7 @@ package guru.myconf.conferenceapp.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.username) EditText _inputUsername;
     @Bind(R.id.password) EditText _inputPassword;
     @Bind(R.id.login_button) Button _loginButton;
+    @Bind(R.id.link_register) TextView _registerLink;
 
     private EventBus _bus = EventBus.getDefault();
     private ProgressDialog _progressDialog;
@@ -53,6 +56,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+
+        _registerLink.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(intent);
             }
         });
 

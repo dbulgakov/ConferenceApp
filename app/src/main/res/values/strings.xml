@@ -13,8 +13,16 @@
     <string name="login_button_text">Войти</string>
     <string name="login_process_message">Авторизация...</string>
 
+    <string name="register_name_hint">Фамилия, имя</string>
+    <string name="register_username_hint">Логин</string>
+    <string name="register_password_hint">Пароль</string>
+    <string name="register_email_hint">Email</string>
+    <string name="register_button_text">Зарегистрироваться</string>
 
     <string name="invite_to_register_message">Зарегистрировать новый аккаунт</string>
     <string name="conferenceguru_api_url">https://myconf.guru/api/</string>
     <string name="auth_token_key">authToken</string>
+    <string name="invite_to_login_message">Уже зарегистрированы? Войти</string>
+
+
 </resources>
