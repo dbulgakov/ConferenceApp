@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ConferenceApp</string>
+    <string name="app_name">Conferences</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
