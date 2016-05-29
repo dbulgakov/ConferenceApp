@@ -1,7 +1,6 @@
 package guru.myconf.conferenceapp.activities;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -36,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
-    @Bind(R.id.username) EditText _inputUsername;
+    @Bind(R.id.user_login) EditText _inputUserLogin;
     @Bind(R.id.password) EditText _inputPassword;
     @Bind(R.id.login_button) Button _loginButton;
     @Bind(R.id.link_register) TextView _registerLink;
@@ -85,18 +84,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void attemptLogin() {
-        String userName = _inputUsername.getText().toString();
+        String userLogin = _inputUserLogin.getText().toString();
         String userPassword = _inputPassword.getText().toString();
 
-        if (!validateCredentials(userName, userPassword)) {
+        if (!validateCredentials(userLogin, userPassword)) {
             return;
         }
 
         _progressDialog.show();
-        makeLoginRequest(userName, userPassword);
+        makeLoginRequest(userLogin, userPassword);
     }
 
-    private boolean validateCredentials(String userName, String userPassword) {
+    private boolean validateCredentials(String userLogin, String userPassword) {
 
         boolean areCredentialsValid = true;
         View focusView = null;
@@ -106,9 +105,9 @@ public class LoginActivity extends AppCompatActivity {
             focusView = _inputPassword;
         }
 
-        if (!isEmailValid(userName)) {
-            _inputUsername.setError(getString(R.string.error_invalid_email));
-            focusView = _inputUsername;
+        if (!isEmailValid(userLogin)) {
+            _inputUserLogin.setError(getString(R.string.error_invalid_email));
+            focusView = _inputUserLogin;
         }
 
         if (focusView != null) {
@@ -119,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
         return areCredentialsValid;
     }
 
-    private String makeLoginRequest(String username, String password) {
+    private String makeLoginRequest(String userLogin, String password) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.conferenceguru_api_url))
                 .addConverterFactory(GsonConverterFactory.create())
@@ -127,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
 
         ConferenceGuruApi apiService = retrofit.create(ConferenceGuruApi.class);
 
-        LoginRequest loginRequest = new LoginRequest(username, password);
+        LoginRequest loginRequest = new LoginRequest(userLogin, password);
 
         Call<LoginResponse> call = apiService.userLogin(loginRequest);
 
@@ -190,7 +189,7 @@ public class LoginActivity extends AppCompatActivity {
         return progressDialog;
     }
 
-    public void saveToken(String token) {
+    private void saveToken(String token) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(getString(R.string.auth_token_key), token);

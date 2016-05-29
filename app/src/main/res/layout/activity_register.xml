@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/text_input_layout_margin"
             android:layout_marginBottom="@dimen/text_input_layout_margin">
-            <EditText android:id="@+id/firstname"
+            <EditText android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
@@ -36,11 +36,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/text_input_layout_margin"
             android:layout_marginBottom="@dimen/text_input_layout_margin">
-            <EditText android:id="@+id/username"
+            <EditText android:id="@+id/user_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:hint="@string/register_username_hint" />
+                android:hint="@string/register_userlogin_hint" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -68,7 +68,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/login_button"
+            android:id="@+id/register_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"

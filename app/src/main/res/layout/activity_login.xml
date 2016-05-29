@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/text_input_layout_margin"
             android:layout_marginBottom="@dimen/text_input_layout_margin">
-            <EditText android:id="@+id/username"
+            <EditText android:id="@+id/user_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
