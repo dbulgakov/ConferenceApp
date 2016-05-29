@@ -1,20 +1,20 @@
 <resources>
     <string name="app_name">Conferences</string>
 
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-    <string name="email_hint">Email</string>
-    <string name="password_hint">Пароль</string>
+    <string name="error_invalid_email">Необходимо указать имя пользователя</string>
+    <string name="error_invalid_password">Необходимо указать пароль</string>
+    <string name="error_no_internet">Проверьте подключение к сети</string>
+    <string name="error_wrong_credentials">Неверный логин или пароль</string>
+    <string name="error_server_error">Внутренняя ошибка сервера</string>
+
+
+    <string name="login_username_hint">Логин</string>
+    <string name="login_password_hint">Пароль</string>
     <string name="login_button_text">Войти</string>
-    <string name="register_text">Зарегистрировать новый аккаунт</string>
+    <string name="login_process_message">Авторизация...</string>
+
+
+    <string name="invite_to_register_message">Зарегистрировать новый аккаунт</string>
+    <string name="conferenceguru_api_url">https://myconf.guru/api/</string>
+    <string name="auth_token_key">authToken</string>
 </resources>
