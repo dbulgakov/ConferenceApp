@@ -13,4 +13,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Пароль</string>
+    <string name="login_button_text">Войти</string>
+    <string name="register_text">Зарегистрировать новый аккаунт</string>
 </resources>

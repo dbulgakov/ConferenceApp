@@ -5,4 +5,10 @@
 
     <dimen name="activity_margin_top">56dp</dimen>
     <dimen name="activity_margin_side">24dp</dimen>
+
+    <dimen name="app_logo_margin_bottom">48dp</dimen>
+    <dimen name="app_logo_layout_height">72dp</dimen>
+
+    <dimen name="text_input_layout_margin">8dp</dimen>
+
 </resources>
