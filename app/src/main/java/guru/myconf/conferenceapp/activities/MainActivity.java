@@ -49,8 +49,6 @@ public class MainActivity extends AppCompatActivity
         if (!checkPreferencesManager()) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-        } else {
-
         }
     }
 
@@ -78,6 +76,12 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_conferences) {
 
         } else if (id == R.id.nav_logout) {
+            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+            if (settings.contains(getString(R.string.auth_token_key))) {
+                SharedPreferences.Editor editor = settings.edit();
+                editor.clear().apply();
+            }
+            checkAuth();
 
         } else if (id == R.id.nav_about) {
 
