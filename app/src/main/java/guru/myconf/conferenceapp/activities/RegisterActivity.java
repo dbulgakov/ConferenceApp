@@ -197,4 +197,18 @@ public class RegisterActivity extends AppCompatActivity {
         super.onDestroy();
         _bus.unregister(this);
     }
+
+    @Override
+    public void onResume() {
+        if (!_bus.isRegistered(this))
+            _bus.register(this);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        if (_bus.isRegistered(this))
+            _bus.unregister(this);
+        super.onPause();
+    }
 }

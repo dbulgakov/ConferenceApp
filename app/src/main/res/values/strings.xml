@@ -30,6 +30,14 @@
     <string name="conferenceguru_api_url">https://myconf.guru/api/</string>
     <string name="auth_token_key">authToken</string>
     <string name="invite_to_login_message">Уже зарегистрированы? Войти</string>
+    <string name="title_activity_main">Конференции</string>
 
+    <string name="navigation_drawer_open">Открыть</string>
+    <string name="navigation_drawer_close">Закрыть</string>
 
+    <string name="navigation_bar_about">О приложении</string>
+    <string name="navigation_bar_logout">Выйти из аккаунта</string>
+    <string name="navigation_bar_settings">Настройки</string>
+    <string name="navigation_bar_account">Аккаунт</string>
+    <string name="navigation_bar_conferences">Поиск конференций</string>
 </resources>

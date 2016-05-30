@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_account"
+            android:title="@string/navigation_bar_account" />
+        <item
+            android:id="@+id/nav_conferences"
+            android:title="@string/navigation_bar_conferences" />
+    </group>
+
+    <item android:title="@string/navigation_bar_settings">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:title="@string/navigation_bar_logout" />
+            <item
+                android:id="@+id/nav_about"
+                android:title="@string/navigation_bar_about" />
+        </menu>
+    </item>
+</menu>
