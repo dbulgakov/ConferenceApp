@@ -28,5 +28,6 @@
     <string name="conferenceguru_api_url">https://myconf.guru/api/</string>
     <string name="auth_token_key">authToken</string>
     <string name="invite_to_login_message">Уже зарегистрированы? Войти</string>
+    <string name="Registration_process_message">Регистрация…</string>
 
 </resources>

@@ -67,9 +67,14 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+        ProgressBarUtility.showProgressBar(this, getString(R.string.Registration_process_message));
+
 
     }
 
+    private void makeRegistrationRequest(String[] userName, String userLogin, String userPassword, String userEmail) {
+
+    }
 
 
     private boolean validateUserInfo(String userName, String userLogin, String userPassword, String userEmail) {

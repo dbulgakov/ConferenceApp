@@ -1,6 +1,5 @@
 package guru.myconf.conferenceapp.activities;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,7 +21,8 @@ import java.net.ConnectException;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import guru.myconf.conferenceapp.R;
-import guru.myconf.conferenceapp.api.ConferenceGuruApi;
+import guru.myconf.conferenceapp.api.ApiUrlManager;
+import guru.myconf.conferenceapp.api.GeneralApiManager;
 import guru.myconf.conferenceapp.events.ApiErrorEvent;
 import guru.myconf.conferenceapp.events.ApiResultEvent;
 import guru.myconf.conferenceapp.pojos.Request.LoginRequest;
@@ -117,13 +117,11 @@ public class LoginActivity extends AppCompatActivity {
         return areCredentialsValid;
     }
 
-    private String makeLoginRequest(String userLogin, String password) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getString(R.string.conferenceguru_api_url))
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+    private void makeLoginRequest(String userLogin, String password) {
 
-        ConferenceGuruApi apiService = retrofit.create(ConferenceGuruApi.class);
+        GeneralApiManager apiManager = new GeneralApiManager(this);
+
+        ApiUrlManager apiService = apiManager.getApiService();
 
         LoginRequest loginRequest = new LoginRequest(userLogin, password);
 
@@ -152,7 +150,6 @@ public class LoginActivity extends AppCompatActivity {
                 _bus.post(new ApiErrorEvent(new ConnectException()));
             }
         });
-        return null;
     }
 
     @Subscribe
@@ -183,6 +180,12 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(getString(R.string.auth_token_key), token);
         editor.apply();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        _bus.unregister(this);
     }
 }
 
