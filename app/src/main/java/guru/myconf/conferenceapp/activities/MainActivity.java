@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity
                 this, _drawer, _toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         _drawer.addDrawerListener(toggle);
 
+        _navigationView.getMenu().getItem(1).setChecked(true);
+
         toggle.syncState();
         _navigationView.setNavigationItemSelectedListener(this);
 
