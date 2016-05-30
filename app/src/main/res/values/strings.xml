@@ -18,6 +18,7 @@
     <string name="register_password_hint">Пароль</string>
     <string name="register_email_hint">Email</string>
     <string name="register_button_text">Зарегистрироваться</string>
+    <string name="error_username_already_taken">Извините, этот логин уже занят</string>
 
     <string name="error_register_wrong_email">Введите корректный email</string>
     <string name="error_register_wrong_length">Длина не менее&#160;</string>
@@ -29,5 +30,4 @@
     <string name="auth_token_key">authToken</string>
     <string name="invite_to_login_message">Уже зарегистрированы? Войти</string>
     <string name="Registration_process_message">Регистрация…</string>
-
 </resources>

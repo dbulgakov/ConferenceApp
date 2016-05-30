@@ -30,8 +30,6 @@ import guru.myconf.conferenceapp.pojos.Response.LoginResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import guru.myconf.conferenceapp.utils.ProgressBarUtility;
 
 public class LoginActivity extends AppCompatActivity {
@@ -123,9 +121,7 @@ public class LoginActivity extends AppCompatActivity {
 
         ApiUrlManager apiService = apiManager.getApiService();
 
-        LoginRequest loginRequest = new LoginRequest(userLogin, password);
-
-        Call<LoginResponse> call = apiService.userLogin(loginRequest);
+        Call<LoginResponse> call = apiService.userLogin(new LoginRequest(userLogin, password));
 
         call.enqueue(new Callback<LoginResponse>() {
 
@@ -138,7 +134,6 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.code() == 500){
                         throw new Exception();
                     }
-
                 }
                 catch (Exception e){
                     _bus.post(new ApiErrorEvent(e));
@@ -184,8 +179,22 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         _bus.unregister(this);
+        super.onDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        if (!_bus.isRegistered(this))
+            _bus.register(this);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        if (_bus.isRegistered(this))
+            _bus.unregister(this);
+        super.onPause();
     }
 }
 
