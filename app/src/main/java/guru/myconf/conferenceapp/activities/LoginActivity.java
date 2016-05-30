@@ -32,6 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import guru.myconf.conferenceapp.utils.ProgressBarUtility;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -41,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.link_register) TextView _registerLink;
 
     private EventBus _bus = EventBus.getDefault();
-    private ProgressDialog _progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        _progressDialog = initializeProcessDialog();
         _loginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        _progressDialog.show();
+        ProgressBarUtility.showProgressBar(this, getString(R.string.login_process_message));
         makeLoginRequest(userLogin, userPassword);
     }
 
@@ -158,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Subscribe
     public void onEvent(ApiResultEvent event) {
-        _progressDialog.dismiss();
+        ProgressBarUtility.dismissProgressBar();
         saveToken(event.getResponse().toString());
         finish();
     }
@@ -166,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
     @Subscribe
     public void onEvent(ApiErrorEvent event) {
         Log.d("API ERROR: ", "" + event.getError());
-        _progressDialog.dismiss();
+        ProgressBarUtility.dismissProgressBar();
 
         Exception exception = event.getError();
 
@@ -177,16 +176,6 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             Toast.makeText(getBaseContext(), R.string.error_server_error, Toast.LENGTH_SHORT).show();
         }
-    }
-
-
-    private ProgressDialog initializeProcessDialog()
-    {
-        ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage(getString(R.string.login_process_message));
-        return progressDialog;
     }
 
     private void saveToken(String token) {

@@ -3,6 +3,7 @@ package guru.myconf.conferenceapp.activities;
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import guru.myconf.conferenceapp.R;
+import guru.myconf.conferenceapp.utils.ProgressBarUtility;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -25,7 +27,6 @@ public class RegisterActivity extends AppCompatActivity {
     @Bind(R.id.email) EditText _inputEmail;
 
     private EventBus _bus = EventBus.getDefault();
-    private ProgressDialog _progressDialog;
 
     private static final int MIN_LENGH = 4;
     private static final int MAX_LENGH = 30;
@@ -65,6 +66,8 @@ public class RegisterActivity extends AppCompatActivity {
         if (!validateUserInfo(userName, userLogin, userPassword, userEmail)) {
             return;
         }
+
+
     }
 
 
@@ -115,6 +118,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean isNameValid(String userName) {
-        return userName.isEmpty() && userName.split("\\s+").length == 2;
+        return !userName.isEmpty() && userName.split("\\s+").length == 2;
     }
 }

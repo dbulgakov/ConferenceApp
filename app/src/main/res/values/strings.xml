@@ -11,9 +11,9 @@
     <string name="login_username_hint">Логин</string>
     <string name="login_password_hint">Пароль</string>
     <string name="login_button_text">Войти</string>
-    <string name="login_process_message">Авторизация...</string>
+    <string name="login_process_message">Авторизация…</string>
 
-    <string name="register_name_hint">Фамилия, Имя</string>
+    <string name="register_name_hint">Имя, Фамилия</string>
     <string name="register_userlogin_hint">Логин</string>
     <string name="register_password_hint">Пароль</string>
     <string name="register_email_hint">Email</string>
@@ -21,7 +21,7 @@
 
     <string name="error_register_wrong_email">Введите корректный email</string>
     <string name="error_register_wrong_length">Длина не менее&#160;</string>
-    <string name="error_register_wrong_name">Необходимо указать Фамилию и Имя</string>
+    <string name="error_register_wrong_name">Необходимо указать Имя и Фамилию</string>
     <string name="error_symbol">&#160;символов</string>
 
     <string name="invite_to_register_message">Зарегистрировать новый аккаунт</string>
