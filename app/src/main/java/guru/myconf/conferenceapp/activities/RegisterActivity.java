@@ -80,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        ProgressBarUtility.showProgressBar(this, getString(R.string.Registration_process_message));
+        ProgressBarUtility.showProgressBar(this, getString(R.string.registration_process_message));
         makeRegistrationRequest(userName.split("\\s+"), userLogin, userPassword, userEmail);
     }
 
@@ -123,6 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Subscribe
     public void onEvent(ApiResultEvent event) {
         ProgressBarUtility.dismissProgressBar();
+        Toast.makeText(getBaseContext(), R.string.registration_finished_message, Toast.LENGTH_SHORT).show();
         finish();
     }
 
