@@ -52,7 +52,10 @@ public class MainActivity extends AppCompatActivity
     private ConferenceAdapter _conferenceAdapter;
     private RecyclerView.LayoutManager _layoutManager;
 
-    private ArrayList<Conference> conflist= new ArrayList<>();
+    private ArrayList<Conference> _conflist = new ArrayList<>();
+
+    static final int LOGIN_STATUS = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +89,7 @@ public class MainActivity extends AppCompatActivity
 
         // Checking auth
         if (!checkAuth()){
-
-            // Does not run in OnCreateMethod
+            // Does not run in OnCreateMethod, so running this in new run
             _swipeRefreshLayout.post(new Runnable() {
                                         @Override
                                         public void run() {
@@ -162,7 +164,7 @@ public class MainActivity extends AppCompatActivity
     private boolean checkAuth(){
         if (!checkPreferencesManager()) {
             Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, LOGIN_STATUS);
             return true;
         }
         return false;
@@ -171,6 +173,11 @@ public class MainActivity extends AppCompatActivity
     private boolean checkPreferencesManager(){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         return settings.contains(getString(R.string.auth_token_key));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        getConferences();
     }
 
     @Override
@@ -209,22 +216,22 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onDestroy() {
-        _bus.unregister(this);
         super.onDestroy();
+        _bus.unregister(this);
     }
 
     @Override
     public void onResume() {
+        super.onResume();
         if (!_bus.isRegistered(this))
             _bus.register(this);
-        super.onResume();
     }
 
     @Override
     public void onPause() {
+        super.onPause();
         if (_bus.isRegistered(this))
             _bus.unregister(this);
-        super.onPause();
     }
 
     @Override

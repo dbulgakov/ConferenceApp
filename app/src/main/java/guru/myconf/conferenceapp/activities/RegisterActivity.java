@@ -200,15 +200,15 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
+        super.onResume();
         if (!_bus.isRegistered(this))
             _bus.register(this);
-        super.onResume();
     }
 
     @Override
     public void onPause() {
+        super.onPause();
         if (_bus.isRegistered(this))
             _bus.unregister(this);
-        super.onPause();
     }
 }

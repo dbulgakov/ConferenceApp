@@ -151,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onEvent(ApiResultEvent event) {
         ProgressBarUtility.dismissProgressBar();
         saveToken(event.getResponse().toString());
+        setResult(RESULT_OK);
         finish();
     }
 
@@ -179,22 +180,22 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        _bus.unregister(this);
         super.onDestroy();
+        _bus.unregister(this);
     }
 
     @Override
     public void onResume() {
+        super.onResume();
         if (!_bus.isRegistered(this))
             _bus.register(this);
-        super.onResume();
     }
 
     @Override
     public void onPause() {
+        super.onPause();
         if (_bus.isRegistered(this))
             _bus.unregister(this);
-        super.onPause();
     }
 }
 
