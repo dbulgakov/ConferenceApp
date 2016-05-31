@@ -6,13 +6,13 @@ public class Conference {
     private int _id;
     private String _name;
     private String _date;
-    private Bitmap _image;
+    private String _imageLink;
 
-    public Conference(int id, String name, String date, Bitmap image) {
+    public Conference(int id, String name, String date, String imageLink) {
         _id = id;
         _name = name;
         _date = date;
-        _image = image;
+        _imageLink = imageLink;
     }
 
     public int getId() {
@@ -27,7 +27,7 @@ public class Conference {
         return _date;
     }
 
-    public Bitmap getImage() {
-        return _image;
+    public String getImageLink() {
+        return _imageLink;
     }
 }

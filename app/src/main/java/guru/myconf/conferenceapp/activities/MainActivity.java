@@ -44,10 +44,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        conflist.add(new Conference(1, "hello", "hello6", null));
-        conflist.add(new Conference(2, "hello2", "hello7", null));
-        conflist.add(new Conference(3, "hello3", "hello8", null));
-        conflist.add(new Conference(4, "hello4", "hello9", null));
+        conflist.add(new Conference(1, "hello", "hello6", "http://static1.squarespace.com/static/569cafff841aba3e9730c245/569e1ae3df40f36b9acc04a3/56e2e3ed9f7266cdfff01e5c/1461336372285/conferences.jpg"));
+        conflist.add(new Conference(2, "hello2", "hello7", "http://static1.squarespace.com/static/569cafff841aba3e9730c245/569e1ae3df40f36b9acc04a3/56e2e3ed9f7266cdfff01e5c/1461336372285/conferences.jpg"));
+        conflist.add(new Conference(3, "hello3", "hello8", "http://static1.squarespace.com/static/569cafff841aba3e9730c245/569e1ae3df40f36b9acc04a3/56e2e3ed9f7266cdfff01e5c/1461336372285/conferences.jpg"));
+        conflist.add(new Conference(4, "hello4", "hello9", "http://static1.squarespace.com/static/569cafff841aba3e9730c245/569e1ae3df40f36b9acc04a3/56e2e3ed9f7266cdfff01e5c/1461336372285/conferences.jpg"));
 
         // ButterKnife
         ButterKnife.bind(this);
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity
         // Card view init
         _layoutManager = new LinearLayoutManager(this);
         _recyclerView.setLayoutManager(_layoutManager);
-        _conferenceAdapter = new ConferenceAdapter(conflist);
+        _conferenceAdapter = new ConferenceAdapter(this, conflist);
         _recyclerView.setAdapter(_conferenceAdapter);
 
         // Checking auth
