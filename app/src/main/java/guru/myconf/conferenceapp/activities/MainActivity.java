@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,19 +39,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
 
     @Bind(R.id.toolbar) Toolbar _toolbar;
     @Bind(R.id.nav_view) NavigationView _navigationView;
     @Bind(R.id.drawer_layout) DrawerLayout _drawer;
     @Bind(R.id.recycler_view) RecyclerView _recyclerView;
+    @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout _swipeRefreshLayout;
 
     private EventBus _bus = EventBus.getDefault();
 
     private ConferenceAdapter _conferenceAdapter;
     private RecyclerView.LayoutManager _layoutManager;
 
-    private ArrayList<Conference> conflist= new ArrayList<Conference>();
+    private ArrayList<Conference> conflist= new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,14 +81,33 @@ public class MainActivity extends AppCompatActivity
         //EventBus
         _bus.register(this);
 
+        //SwipeRefresh
+        _swipeRefreshLayout.setOnRefreshListener(this);
+
         // Checking auth
         if (!checkAuth()){
-            getConferences();
+
+            // Does not run in OnCreateMethod
+            _swipeRefreshLayout.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            _swipeRefreshLayout.setRefreshing(true);
+                                            getConferences();
+                                        }
+                                    }
+            );
         }
     }
 
 
     public void getConferences() {
+        // Turning on progressbar
+        _swipeRefreshLayout.setRefreshing(true);
+
+        // Removing old data
+        _conferenceAdapter.removeItems();
+
+        // Initializing apiManager to perform requests
         GeneralApiManager apiManager = new GeneralApiManager(this);
 
         ApiUrlManager apiService = apiManager.getApiService();
@@ -98,8 +119,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<ConferencesResponse> call, Response<ConferencesResponse> response) {
                 try {
-                    ArrayList<Conference> conferences = new ArrayList<Conference>();
+                    ArrayList<Conference> conferences = new ArrayList<>();
 
+                    // Converting into more convenient classes
                     for (ConferenceResponse c : response.body().getResponseConferences()) {
                         Conference tmp = new Conference(c.getId(),
                                 c.getTitle(), c.getDate(), getString(R.string.image_server_address) + c.getImageId());
@@ -125,13 +147,14 @@ public class MainActivity extends AppCompatActivity
 
     @Subscribe
     public void onEvent(ApiResultEvent event) {
-        _conferenceAdapter.notifyDataSetChanged();
         _conferenceAdapter.addItems((ArrayList<Conference>) event.getResponse());
+        _swipeRefreshLayout.setRefreshing(false);
     }
 
     @Subscribe
     public void onEvent(ApiErrorEvent event) {
         Log.d("API ERROR: ", "" + event.getError());
+        _swipeRefreshLayout.setRefreshing(false);
         Toast.makeText(getBaseContext(), R.string.error_no_internet, Toast.LENGTH_SHORT).show();
     }
 
@@ -202,5 +225,10 @@ public class MainActivity extends AppCompatActivity
         if (_bus.isRegistered(this))
             _bus.unregister(this);
         super.onPause();
+    }
+
+    @Override
+    public void onRefresh() {
+        getConferences();
     }
 }

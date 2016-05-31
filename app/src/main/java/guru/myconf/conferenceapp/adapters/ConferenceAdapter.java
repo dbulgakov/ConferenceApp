@@ -61,7 +61,7 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         ConferenceViewHolder holder = (ConferenceViewHolder) viewHolder;
         holder.conferenceName.setText(_conferences.get(position).getTitle());
-        holder.conferenceDate.setText(_context.getString(R.string.conferencerow_date_string) + _conferences.get(position).getDate());
+        holder.conferenceDate.setText(new StringBuilder().append(_context.getString(R.string.conferencerow_date_string)).append(_conferences.get(position).getDate()).toString());
         _picasso.load(_conferences.get(position).getImageLink())
                 .fit()
                 .into(holder.conferenceImage, new Callback() {
@@ -85,5 +85,11 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
 
     public void addItems(ArrayList<Conference> conferences) {
         _conferences.addAll(conferences);
+        notifyDataSetChanged();
+    }
+
+    public void removeItems() {
+        _conferences = new ArrayList<>();
+        notifyDataSetChanged();
     }
 }
