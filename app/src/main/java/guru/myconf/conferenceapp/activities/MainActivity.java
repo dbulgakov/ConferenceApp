@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.avast.android.dialogs.fragment.SimpleDialogFragment;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -207,7 +209,7 @@ public class MainActivity extends AppCompatActivity
             checkAuth();
 
         } else if (id == R.id.nav_about) {
-
+            SimpleDialogFragment.createBuilder(this, getSupportFragmentManager()).setTitle("О приложении").setMessage("Bulgakov Dmitriy\nmail@dbulgakov.com\n\nConference App v1.0.0").setPositiveButtonText("OK").useDarkTheme().show();
         }
 
         _drawer.closeDrawer(GravityCompat.START);
