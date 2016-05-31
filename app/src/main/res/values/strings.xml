@@ -40,4 +40,6 @@
     <string name="navigation_bar_settings">Настройки</string>
     <string name="navigation_bar_account">Аккаунт</string>
     <string name="navigation_bar_conferences">Все конференции</string>
+    <string name="conferencerow_name_string">Название конференции</string>
+    <string name="conferencerow_date_string">Дата проведения:</string>
 </resources>

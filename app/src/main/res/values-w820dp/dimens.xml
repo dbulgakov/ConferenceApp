@@ -1,5 +1,5 @@
 <resources>
-    <dimen name="activity_horizontal_margin">64dp</dimen>
+    <dimen name="activity_horizontal_margin">32dp</dimen>
     <dimen name="activity_vertical_margin">32dp</dimen>
 
     <dimen name="activity_margin_top">112dp</dimen>
@@ -9,10 +9,21 @@
     <dimen name="app_logo_layout_height">144dp</dimen>
 
     <dimen name="login_activity_text_input_layout_margin">16dp</dimen>
-
     <dimen name="login_page_button_margin_top">72dp</dimen>
     <dimen name="login_page_button_margin_bottom">48dp</dimen>
-    <dimen name="login_page_text_size">32sp</dimen>
     <dimen name="login_page_text_margin_bottom">48dp</dimen>
     <dimen name="login_page_button_padding">24dp</dimen>
+
+    <dimen name="nav_header_vertical_spacing">32dp</dimen>
+    <dimen name="nav_header_height">320dp</dimen>
+
+    <dimen name="conference_row_date_text_margin">32dp</dimen>
+    <dimen name="conference_rows_padding">16dp</dimen>
+    <dimen name="conference_row_image_size">350dp</dimen>
+
+    <dimen name="conference_card_view_margin_top">80dp</dimen>
+
+    <dimen name="text_size_normal">32sp</dimen>
+    <dimen name="text_size_small">28sp</dimen>
+
 </resources>
