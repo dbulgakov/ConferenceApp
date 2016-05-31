@@ -41,7 +41,7 @@
     <string name="navigation_bar_account">Аккаунт</string>
     <string name="navigation_bar_conferences">Все конференции</string>
     <string name="conferencerow_name_string">Название конференции</string>
-    <string name="conferencerow_date_string">Дата проведения:</string>
+    <string name="conferencerow_date_string">Дата проведения:&#160;</string>
 
     <string name="image_server_address">https://myconf.guru/api/images/</string>
     <string name="about_app_fragment_title">О приложении</string>
