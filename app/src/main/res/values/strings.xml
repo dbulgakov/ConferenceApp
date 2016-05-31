@@ -44,4 +44,7 @@
     <string name="conferencerow_date_string">Дата проведения:</string>
 
     <string name="image_server_address">https://myconf.guru/api/images/</string>
+    <string name="about_app_fragment_title">О приложении</string>
+    <string name="about_app_fragment_body_text">Bulgakov Dmitriy\nmail@dbulgakov.com\n\nConference App v1.0.0</string>
+    <string name="about_app_fragment_button_text">OK</string>
 </resources>

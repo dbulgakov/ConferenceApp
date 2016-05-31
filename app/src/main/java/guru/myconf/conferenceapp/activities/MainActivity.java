@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity
             checkAuth();
 
         } else if (id == R.id.nav_about) {
-            SimpleDialogFragment.createBuilder(this, getSupportFragmentManager()).setTitle("О приложении").setMessage("Bulgakov Dmitriy\nmail@dbulgakov.com\n\nConference App v1.0.0").setPositiveButtonText("OK").useDarkTheme().show();
+            SimpleDialogFragment.createBuilder(this, getSupportFragmentManager()).setTitle(getString(R.string.about_app_fragment_title)).setMessage(getString(R.string.about_app_fragment_body_text)).setPositiveButtonText(getString(R.string.about_app_fragment_button_text)).useDarkTheme().show();
         }
 
         _drawer.closeDrawer(GravityCompat.START);
