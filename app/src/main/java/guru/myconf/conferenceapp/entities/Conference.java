@@ -20,7 +20,7 @@ public class Conference {
     }
 
     public String getName() {
-        return _date;
+        return _name;
     }
 
     public String getDate() {
