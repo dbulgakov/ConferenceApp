@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
-import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -40,6 +39,7 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
             conferenceDate = (TextView) v.findViewById(R.id.conference_date);
             conferenceImage = (ImageView) v.findViewById(R.id.conference_image);
 
+            // Initializing Picasso
             _picasso = Picasso.with(_context);
             _picasso.setIndicatorsEnabled(false);
         }
@@ -48,13 +48,6 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
     public ConferenceAdapter(Context context, ArrayList<Conference> conferences) {
         _conferences = conferences;
         _context = context;
-
-        Picasso.Builder builder = new Picasso.Builder(_context);
-        builder.downloader(new OkHttpDownloader(_context,Integer.MAX_VALUE));
-        Picasso picasso = builder.build();
-        picasso.setIndicatorsEnabled(true);
-        picasso.setLoggingEnabled(true);
-        Picasso.setSingletonInstance(picasso);
     }
 
     @Override
@@ -67,8 +60,8 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         ConferenceViewHolder holder = (ConferenceViewHolder) viewHolder;
-        holder.conferenceName.setText(_conferences.get(position).getName());
-        holder.conferenceDate.setText(_conferences.get(position).getDate());
+        holder.conferenceName.setText(_conferences.get(position).getTitle());
+        holder.conferenceDate.setText(_context.getString(R.string.conferencerow_date_string) + _conferences.get(position).getDate());
         _picasso.load(_conferences.get(position).getImageLink())
                 .fit()
                 .into(holder.conferenceImage, new Callback() {
@@ -79,7 +72,8 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
 
                     @Override
                     public void onError() {
-                        Log.v("Picasso","Could not fetch image");
+                        Log.v("Picasso Error","Error while fetching image");
+                        Log.v("Picasso Error",_conferences.get(position).getImageLink());
                     }
                 });
     }
@@ -87,5 +81,9 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
     @Override
     public int getItemCount() {
         return _conferences.size();
+    }
+
+    public void addItems(ArrayList<Conference> conferences) {
+        _conferences.addAll(conferences);
     }
 }

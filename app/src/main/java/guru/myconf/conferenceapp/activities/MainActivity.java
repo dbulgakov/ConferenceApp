@@ -12,17 +12,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import guru.myconf.conferenceapp.R;
 import guru.myconf.conferenceapp.adapters.ConferenceAdapter;
+import guru.myconf.conferenceapp.api.ApiUrlManager;
+import guru.myconf.conferenceapp.api.GeneralApiManager;
 import guru.myconf.conferenceapp.entities.Conference;
+import guru.myconf.conferenceapp.events.ApiErrorEvent;
+import guru.myconf.conferenceapp.events.ApiResultEvent;
+import guru.myconf.conferenceapp.pojos.Response.ConferenceResponse;
+import guru.myconf.conferenceapp.pojos.Response.ConferencesResponse;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,11 +57,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        conflist.add(new Conference(1, "hello", "hello6", "http://static1.squarespace.com/static/569cafff841aba3e9730c245/569e1ae3df40f36b9acc04a3/56e2e3ed9f7266cdfff01e5c/1461336372285/conferences.jpg"));
-        conflist.add(new Conference(2, "hello2", "hello7", "http://static1.squarespace.com/static/569cafff841aba3e9730c245/569e1ae3df40f36b9acc04a3/56e2e3ed9f7266cdfff01e5c/1461336372285/conferences.jpg"));
-        conflist.add(new Conference(3, "hello3", "hello8", "http://static1.squarespace.com/static/569cafff841aba3e9730c245/569e1ae3df40f36b9acc04a3/56e2e3ed9f7266cdfff01e5c/1461336372285/conferences.jpg"));
-        conflist.add(new Conference(4, "hello4", "hello9", "http://static1.squarespace.com/static/569cafff841aba3e9730c245/569e1ae3df40f36b9acc04a3/56e2e3ed9f7266cdfff01e5c/1461336372285/conferences.jpg"));
-
         // ButterKnife
         ButterKnife.bind(this);
 
@@ -61,21 +69,80 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         _navigationView.setNavigationItemSelectedListener(this);
 
+
         // Card view init
         _layoutManager = new LinearLayoutManager(this);
         _recyclerView.setLayoutManager(_layoutManager);
-        _conferenceAdapter = new ConferenceAdapter(this, conflist);
+        _conferenceAdapter = new ConferenceAdapter(this, new ArrayList<Conference>());
         _recyclerView.setAdapter(_conferenceAdapter);
 
+        //EventBus
+        _bus.register(this);
+
         // Checking auth
-        checkAuth();
+        if (!checkAuth()){
+            getConferences();
+        }
     }
 
-    private void checkAuth(){
+
+    public void getConferences() {
+        GeneralApiManager apiManager = new GeneralApiManager(this);
+
+        ApiUrlManager apiService = apiManager.getApiService();
+
+        Call<ConferencesResponse> call = apiService.getConferences();
+
+        call.enqueue(new Callback<ConferencesResponse>() {
+
+            @Override
+            public void onResponse(Call<ConferencesResponse> call, Response<ConferencesResponse> response) {
+                try {
+                    ArrayList<Conference> conferences = new ArrayList<Conference>();
+
+                    for (ConferenceResponse c : response.body().getResponseConferences()) {
+                        Conference tmp = new Conference(c.getId(),
+                                c.getTitle(), c.getDate(), getString(R.string.image_server_address) + c.getImageId());
+                        conferences.add(tmp);
+                    }
+                    _bus.post(new ApiResultEvent(conferences));
+
+                    if (response.code() == 500){
+                        throw new Exception();
+                    }
+                }
+                catch (Exception e){
+                    _bus.post(new ApiErrorEvent(e));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ConferencesResponse> call, Throwable t) {
+                _bus.post(new ApiErrorEvent(new ConnectException()));
+            }
+        });
+    }
+
+    @Subscribe
+    public void onEvent(ApiResultEvent event) {
+        _conferenceAdapter.notifyDataSetChanged();
+        _conferenceAdapter.addItems((ArrayList<Conference>) event.getResponse());
+    }
+
+    @Subscribe
+    public void onEvent(ApiErrorEvent event) {
+        Log.d("API ERROR: ", "" + event.getError());
+        Toast.makeText(getBaseContext(), R.string.error_no_internet, Toast.LENGTH_SHORT).show();
+    }
+
+
+    private boolean checkAuth(){
         if (!checkPreferencesManager()) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+            return true;
         }
+        return false;
     }
 
     private boolean checkPreferencesManager(){
@@ -115,5 +182,25 @@ public class MainActivity extends AppCompatActivity
 
         _drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        _bus.unregister(this);
+        super.onDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        if (!_bus.isRegistered(this))
+            _bus.register(this);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        if (_bus.isRegistered(this))
+            _bus.unregister(this);
+        super.onPause();
     }
 }

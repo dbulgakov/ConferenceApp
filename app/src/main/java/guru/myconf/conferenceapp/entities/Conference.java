@@ -1,16 +1,14 @@
 package guru.myconf.conferenceapp.entities;
 
-import android.graphics.Bitmap;
-
 public class Conference {
     private int _id;
-    private String _name;
+    private String _title;
     private String _date;
     private String _imageLink;
 
-    public Conference(int id, String name, String date, String imageLink) {
+    public Conference(int id, String title, String date, String imageLink) {
         _id = id;
-        _name = name;
+        _title = title;
         _date = date;
         _imageLink = imageLink;
     }
@@ -19,8 +17,8 @@ public class Conference {
         return _id;
     }
 
-    public String getName() {
-        return _name;
+    public String getTitle() {
+        return _title;
     }
 
     public String getDate() {
