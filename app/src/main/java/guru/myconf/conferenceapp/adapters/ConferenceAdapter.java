@@ -2,12 +2,14 @@ package guru.myconf.conferenceapp.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
@@ -20,6 +22,7 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
 
     private ArrayList<Conference> _conferences;
     private Context _context;
+    private Picasso _picasso;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(View v) {
@@ -36,6 +39,9 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
             conferenceName = (TextView) v.findViewById(R.id.conference_title);
             conferenceDate = (TextView) v.findViewById(R.id.conference_date);
             conferenceImage = (ImageView) v.findViewById(R.id.conference_image);
+
+            _picasso = Picasso.with(_context);
+            _picasso.setIndicatorsEnabled(false);
         }
     }
 
@@ -63,7 +69,19 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
         ConferenceViewHolder holder = (ConferenceViewHolder) viewHolder;
         holder.conferenceName.setText(_conferences.get(position).getName());
         holder.conferenceDate.setText(_conferences.get(position).getDate());
-        Picasso.with(_context).load(_conferences.get(position).getImageLink()).into(holder.conferenceImage);
+        _picasso.load(_conferences.get(position).getImageLink())
+                .fit()
+                .into(holder.conferenceImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        Log.v("Picasso","Could not fetch image");
+                    }
+                });
     }
 
     @Override
