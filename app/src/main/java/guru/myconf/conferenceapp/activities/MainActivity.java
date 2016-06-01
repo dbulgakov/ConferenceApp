@@ -68,9 +68,13 @@ public class MainActivity extends AppCompatActivity
         _navigationView.setNavigationItemSelectedListener(this);
 
 
+        /*
         if (checkAuth() && savedInstanceState == null){
             startMainFragment();
         }
+        */
+        Intent intent = new Intent(this, ConferenceInfoActivity.class);
+        startActivity(intent);
     }
 
 
