@@ -11,6 +11,8 @@ import android.view.View;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import guru.myconf.conferenceapp.R;
+import guru.myconf.conferenceapp.api.ApiUrlManager;
+import guru.myconf.conferenceapp.api.GeneralApiManager;
 
 public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -34,8 +36,6 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         setSupportActionBar(_toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        _swipeRefreshLayout.setRefreshing(true);
-
         _toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,6 +43,19 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
             }
         });
     }
+
+    private void getConferenceInfo(int conferenceId) {
+
+        // Initializing apiManager to perform requests
+        GeneralApiManager apiManager = new GeneralApiManager(this);
+        ApiUrlManager apiService = apiManager.getApiService();
+
+
+    }
+
+
+
+
 
     private int getConferenceId() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);

@@ -108,8 +108,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
-                android:background="#00BCD4">
+                android:layout_height="320dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -122,16 +121,6 @@
 
         </LinearLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/gmail_fab"
-            android:layout_gravity="end"
-            android:visibility="gone"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:clickable="true"
-            android:src="@drawable/ic_action_add" />
     </FrameLayout>
 
 </android.support.v4.widget.NestedScrollView>
