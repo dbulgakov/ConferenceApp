@@ -71,7 +71,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:alpha="0.36"
-                    android:src="@drawable/ic_room_24dp" />
+                    android:src="@drawable/ic_place_logo" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -93,7 +93,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:alpha="0.36"
-                    android:src="@drawable/ic_query_builder_24dp" />
+                    android:src="@drawable/ic_clock_logo" />
 
                 <TextView
                     android:layout_width="match_parent"
