@@ -23,6 +23,6 @@ public interface ApiUrlManager {
     @GET("conferences")
     Call<ConferencesResponse> getConferences();
 
-    @GET("conferences/{id}")
-    Call<ConferenceInfoResponse> groupList(@Path("id") int groupId);
+    @GET("conferences/{id}/")
+    Call<ConferenceInfoResponse> getConferenceInfo(@Path("id") int groupId);
 }

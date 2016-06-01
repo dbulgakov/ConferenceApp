@@ -4,10 +4,11 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class SpeechResponse {
-    @SerializedName("speech_id")
+public class ConferenceInfo {
+    @SerializedName("conference_id")
     @Expose
     private int _id;
 
@@ -19,9 +20,9 @@ public class SpeechResponse {
     @Expose
     private String _description;
 
-    @SerializedName("address")
+    @SerializedName("city_name")
     @Expose
-    private String _address;
+    private String _city;
 
     @SerializedName("start_time")
     @Expose
@@ -31,9 +32,14 @@ public class SpeechResponse {
     @Expose
     private Date _endDate;
 
-    @SerializedName("author")
+    @SerializedName("photos")
     @Expose
-    private SpeechAuthor _author;
+    private ArrayList<Integer> _photos;
+
+    @SerializedName("scheduled_speeches")
+    @Expose
+    private ArrayList<SpeechResponse> _speeches;
+
 
     private SimpleDateFormat _dateFormatter = new SimpleDateFormat("dd.MM");
 
@@ -49,35 +55,19 @@ public class SpeechResponse {
         return _description;
     }
 
-    public String getAddress() {
-        return _address;
+    public String getCity() {
+        return _city;
     }
 
     public String getDate() {
         return _dateFormatter.format(_startDate) + " - " + _dateFormatter.format(_endDate);
     }
 
-    public SpeechAuthor getAuthor() {
-        return _author;
+    public ArrayList<Integer> getImageId() {
+        return _photos;
     }
-}
 
-class SpeechAuthor{
-
-    @SerializedName("id")
-    @Expose
-    private int _id;
-
-    @SerializedName("first_name")
-    @Expose
-    private String _first_name;
-
-    @SerializedName("last_name")
-    @Expose
-    private String _last_name;
-
-    @SerializedName("photo_id")
-    @Expose
-    private int _photo_id;
-
+    public ArrayList<SpeechResponse> getSpeeches() {
+        return _speeches;
+    }
 }

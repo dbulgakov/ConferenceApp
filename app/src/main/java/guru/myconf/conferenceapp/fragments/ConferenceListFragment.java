@@ -45,11 +45,9 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
 
     private EventBus _bus = EventBus.getDefault();
 
-
     public static ConferenceListFragment newInstance() {
         return new ConferenceListFragment();
     }
-
 
     public ConferenceListFragment() {
     }
