@@ -68,13 +68,10 @@ public class MainActivity extends AppCompatActivity
         _navigationView.setNavigationItemSelectedListener(this);
 
 
-        /*
+
         if (checkAuth() && savedInstanceState == null){
             startMainFragment();
         }
-        */
-        Intent intent = new Intent(this, ConferenceInfoActivity.class);
-        startActivity(intent);
     }
 
 
@@ -144,6 +141,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void OnConferenceSelected(int conferenceId) {
-        Log.d("id", "" + conferenceId);
+        Intent intent = new Intent(MainActivity.this, ConferenceInfoActivity.class);
+        startActivity(intent);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ButterKnife.bind(this);
+    }
+
 }
