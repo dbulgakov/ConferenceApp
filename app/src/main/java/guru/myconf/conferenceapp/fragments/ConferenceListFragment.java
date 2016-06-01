@@ -62,9 +62,6 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
 
         _context = context;
 
-        //EventBus
-        _bus.register(this);
-
         if (context instanceof ConferenceAdapter.OnConferenceSelected) {
             _clickListener = (ConferenceAdapter.OnConferenceSelected) context;
         } else {
@@ -82,19 +79,28 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
     public void onViewCreated(View view, Bundle savedInstanceState){
         final Activity activity = getActivity();
 
-        _recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        _recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        _conferenceAdapter = new ConferenceAdapter(activity, new ArrayList<Conference>(), _clickListener);
+        //EventBus
+        _bus.register(this);
 
-        _swipeRefreshLayout = (SwipeRefreshLayout) activity.findViewById(R.id.swipe_refresh_layout);
+        if (savedInstanceState == null)
+        {
+            _swipeRefreshLayout = (SwipeRefreshLayout) activity.findViewById(R.id.swipe_refresh_layout);
+            _swipeRefreshLayout.setOnRefreshListener(this);
+            _swipeRefreshLayout.setRefreshing(true);
 
-        _swipeRefreshLayout.setOnRefreshListener(this);
-        _recyclerView.setAdapter(_conferenceAdapter);
+            _recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+            _recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            _conferenceAdapter = new ConferenceAdapter(activity, new ArrayList<Conference>(), _clickListener);
+
+            _recyclerView.setAdapter(_conferenceAdapter);
+        }
+        getConferences();
     }
 
     public void getConferences() {
 
         // Turning on progressbar
+        _swipeRefreshLayout.setRefreshing(true);
         _swipeRefreshLayout.setRefreshing(true);
 
         // Removing old data
@@ -140,7 +146,7 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
 
     @Subscribe
     public void onEvent(ApiResultEvent event) {
-        Log.d("API ERROR: ", "" + "here2");
+        Log.d("", "" + event.getResponse());
         _conferenceAdapter.addItems((ArrayList<Conference>) event.getResponse());
         _swipeRefreshLayout.setRefreshing(false);
     }
@@ -154,7 +160,6 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
 
     @Override
     public void onRefresh() {
-        Log.d("API ERROR: ", "" + "here");
         getConferences();
     }
 }

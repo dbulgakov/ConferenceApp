@@ -69,13 +69,8 @@ public class MainActivity extends AppCompatActivity
 
 
         if (checkAuth() && savedInstanceState == null){
-            Log.d("here3", "here3");
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.root_layout, ConferenceListFragment.newInstance(), "Конференции")
-                    .commit();
+            startMainFragment();
         }
-        Log.d("here2", "here2");
     }
 
 
@@ -83,10 +78,19 @@ public class MainActivity extends AppCompatActivity
         if (!checkPreferencesManager()) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivityForResult(intent, LOGIN_STATUS);
+
             return false;
         }
         return true;
     }
+
+    private void startMainFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.root_layout, ConferenceListFragment.newInstance())
+                .commitAllowingStateLoss();
+    }
+
 
     private boolean checkPreferencesManager(){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
@@ -96,7 +100,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == LOGIN_STATUS) {
-            Log.d("here asdfasdf", "here sadfsadfsadf");
+            startMainFragment();
         }
     }
 
