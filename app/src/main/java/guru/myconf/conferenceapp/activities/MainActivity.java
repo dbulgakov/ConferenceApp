@@ -34,6 +34,7 @@ import guru.myconf.conferenceapp.api.GeneralApiManager;
 import guru.myconf.conferenceapp.entities.Conference;
 import guru.myconf.conferenceapp.events.ApiErrorEvent;
 import guru.myconf.conferenceapp.events.ApiResultEvent;
+import guru.myconf.conferenceapp.fragments.ConferenceListFragment;
 import guru.myconf.conferenceapp.pojos.Response.ConferenceResponse;
 import guru.myconf.conferenceapp.pojos.Response.ConferencesResponse;
 import retrofit2.Call;
@@ -41,30 +42,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ConferenceAdapter.OnConferenceSelected{
 
     @Bind(R.id.toolbar) Toolbar _toolbar;
     @Bind(R.id.nav_view) NavigationView _navigationView;
     @Bind(R.id.drawer_layout) DrawerLayout _drawer;
-    @Bind(R.id.recycler_view) RecyclerView _recyclerView;
-    @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout _swipeRefreshLayout;
-
-    private EventBus _bus = EventBus.getDefault();
-
-    private ConferenceAdapter _conferenceAdapter;
-    private RecyclerView.LayoutManager _layoutManager;
-
-    private ArrayList<Conference> _conflist = new ArrayList<>();
 
     static final int LOGIN_STATUS = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // ButterKnife
+        // ButterKnife binding
         ButterKnife.bind(this);
 
         // Action bar init
@@ -77,89 +68,14 @@ public class MainActivity extends AppCompatActivity
         _navigationView.setNavigationItemSelectedListener(this);
 
 
-        // Card view init
-        _layoutManager = new LinearLayoutManager(this);
-        _recyclerView.setLayoutManager(_layoutManager);
-        _conferenceAdapter = new ConferenceAdapter(this, new ArrayList<Conference>());
-        _recyclerView.setAdapter(_conferenceAdapter);
-
-        //EventBus
-        _bus.register(this);
-
-        //SwipeRefresh
-        _swipeRefreshLayout.setOnRefreshListener(this);
-
-        // Checking auth
-        if (!checkAuth()){
-            // Does not run in OnCreateMethod, so running this in new run
-            _swipeRefreshLayout.post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            _swipeRefreshLayout.setRefreshing(true);
-                                            getConferences();
-                                        }
-                                    }
-            );
+        if (checkAuth() && savedInstanceState == null){
+            Log.d("here3", "here3");
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.root_layout, ConferenceListFragment.newInstance(), "Конференции")
+                    .commit();
         }
-    }
-
-
-    public void getConferences() {
-        // Turning on progressbar
-        _swipeRefreshLayout.setRefreshing(true);
-
-        // Removing old data
-        _conferenceAdapter.removeItems();
-
-        // Initializing apiManager to perform requests
-        GeneralApiManager apiManager = new GeneralApiManager(this);
-
-        ApiUrlManager apiService = apiManager.getApiService();
-
-        Call<ConferencesResponse> call = apiService.getConferences();
-
-        call.enqueue(new Callback<ConferencesResponse>() {
-
-            @Override
-            public void onResponse(Call<ConferencesResponse> call, Response<ConferencesResponse> response) {
-                try {
-                    ArrayList<Conference> conferences = new ArrayList<>();
-
-                    // Converting into more convenient classes
-                    for (ConferenceResponse c : response.body().getResponseConferences()) {
-                        Conference tmp = new Conference(c.getId(),
-                                c.getTitle(), c.getDate(), getString(R.string.image_server_address) + c.getImageId());
-                        conferences.add(tmp);
-                    }
-                    _bus.post(new ApiResultEvent(conferences));
-
-                    if (response.code() == 500){
-                        throw new Exception();
-                    }
-                }
-                catch (Exception e){
-                    _bus.post(new ApiErrorEvent(e));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ConferencesResponse> call, Throwable t) {
-                _bus.post(new ApiErrorEvent(new ConnectException()));
-            }
-        });
-    }
-
-    @Subscribe
-    public void onEvent(ApiResultEvent event) {
-        _conferenceAdapter.addItems((ArrayList<Conference>) event.getResponse());
-        _swipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Subscribe
-    public void onEvent(ApiErrorEvent event) {
-        Log.d("API ERROR: ", "" + event.getError());
-        _swipeRefreshLayout.setRefreshing(false);
-        Toast.makeText(getBaseContext(), R.string.error_no_internet, Toast.LENGTH_SHORT).show();
+        Log.d("here2", "here2");
     }
 
 
@@ -167,9 +83,9 @@ public class MainActivity extends AppCompatActivity
         if (!checkPreferencesManager()) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivityForResult(intent, LOGIN_STATUS);
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     private boolean checkPreferencesManager(){
@@ -179,7 +95,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        getConferences();
+        if (requestCode == LOGIN_STATUS) {
+            Log.d("here asdfasdf", "here sadfsadfsadf");
+        }
     }
 
     @Override
@@ -216,28 +134,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        _bus.unregister(this);
-    }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (!_bus.isRegistered(this))
-            _bus.register(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (_bus.isRegistered(this))
-            _bus.unregister(this);
-    }
-
-    @Override
-    public void onRefresh() {
-        getConferences();
+    public void OnConferenceSelected(int conferenceId) {
+        Log.d("id", "" + conferenceId);
     }
 }

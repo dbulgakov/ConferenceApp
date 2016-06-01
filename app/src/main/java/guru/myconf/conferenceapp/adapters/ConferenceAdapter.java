@@ -22,6 +22,8 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
     private ArrayList<Conference> _conferences;
     private Context _context;
     private Picasso _picasso;
+    private ConferenceAdapter.OnConferenceSelected _clickListener;
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(View v) {
@@ -45,9 +47,10 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
         }
     }
 
-    public ConferenceAdapter(Context context, ArrayList<Conference> conferences) {
+    public ConferenceAdapter(Context context, ArrayList<Conference> conferences, OnConferenceSelected clickListener) {
         _conferences = conferences;
         _context = context;
+        _clickListener = clickListener;
     }
 
     @Override
@@ -60,6 +63,14 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         ConferenceViewHolder holder = (ConferenceViewHolder) viewHolder;
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                _clickListener.OnConferenceSelected(_conferences.get(position).getId());
+            }
+        });
+
         holder.conferenceName.setText(_conferences.get(position).getTitle());
         holder.conferenceDate.setText(new StringBuilder().append(_context.getString(R.string.conferencerow_date_string)).append(_conferences.get(position).getDate()).toString());
         _picasso.load(_conferences.get(position).getImageLink())
@@ -91,5 +102,9 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
     public void removeItems() {
         _conferences = new ArrayList<>();
         notifyDataSetChanged();
+    }
+
+    public interface OnConferenceSelected {
+        void OnConferenceSelected(int conferenceId);
     }
 }
