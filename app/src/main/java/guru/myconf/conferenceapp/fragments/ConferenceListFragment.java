@@ -83,11 +83,11 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
 
         if (savedInstanceState == null)
         {
-            _swipeRefreshLayout = (SwipeRefreshLayout) activity.findViewById(R.id.swipe_refresh_layout);
+            _swipeRefreshLayout = (SwipeRefreshLayout) activity.findViewById(R.id.swipe_refresh_layout_main);
             _swipeRefreshLayout.setOnRefreshListener(this);
             _swipeRefreshLayout.setRefreshing(true);
 
-            _recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+            _recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_conferences);
             _recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             _recyclerView.setHasFixedSize(true);
             _conferenceAdapter = new ConferenceAdapter(activity, new ArrayList<Conference>(), _clickListener, _swipeRefreshLayout);

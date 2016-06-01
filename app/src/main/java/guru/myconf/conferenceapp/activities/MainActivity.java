@@ -139,9 +139,18 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    private void SaveConferenceId(int conferenceId){
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt("conferenceId", conferenceId);
+        editor.apply();
+    }
+
+
     @Override
     public void OnConferenceSelected(int conferenceId) {
         Intent intent = new Intent(MainActivity.this, ConferenceInfoActivity.class);
+        SaveConferenceId(conferenceId);
         startActivity(intent);
     }
 

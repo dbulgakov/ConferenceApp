@@ -7,24 +7,40 @@
     android:layout_height="match_parent"
     tools:context=".activities.ConferenceInfoActivity">
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_marginTop="70dp"
+        android:layout_height="fill_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout_conference_info"
+            android:layout_marginTop="70dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_speeches"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/gmail_toolbar"
+            android:id="@+id/speech_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize" />
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/gmail_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <include layout="@layout/bottom_sheet"
-        android:id="@+id/gmail_bottom_sheet"/>
+    <include layout="@layout/activity_conference_info_bottom"
+        android:id="@+id/activity_conference_info_bottom"/>
 
 </android.support.design.widget.CoordinatorLayout>
