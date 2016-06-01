@@ -94,6 +94,7 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
 
             _recyclerView.setAdapter(_conferenceAdapter);
         }
+
         getConferences();
     }
 
@@ -146,8 +147,9 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
 
     @Subscribe
     public void onEvent(ApiResultEvent event) {
-        Log.d("", "" + event.getResponse());
-        _conferenceAdapter.addItems((ArrayList<Conference>) event.getResponse());
+        if (event.getResponse() instanceof  ArrayList) {
+            _conferenceAdapter.addItems((ArrayList<Conference>)event.getResponse());
+        }
         _swipeRefreshLayout.setRefreshing(false);
     }
 
