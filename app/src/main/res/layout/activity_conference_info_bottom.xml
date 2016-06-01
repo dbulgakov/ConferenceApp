@@ -67,7 +67,7 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/activity_horizontal_margin">
 
-                <ImageButton
+                <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:alpha="0.36"
@@ -89,7 +89,7 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/activity_horizontal_margin">
 
-                <ImageButton
+                <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:alpha="0.36"
@@ -108,7 +108,8 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="320dp">
+                android:layout_height="320dp"
+                android:background="#00BCD4">
 
                 <TextView
                     android:layout_width="wrap_content"
