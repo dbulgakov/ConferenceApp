@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Conferences</string>
+    <string name="app_name">Конференции</string>
 
     <string name="error_invalid_email">Необходимо указать имя пользователя</string>
     <string name="error_invalid_password">Необходимо указать пароль</string>
