@@ -1,6 +1,7 @@
 package guru.myconf.conferenceapp.adapters;
 
 import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
     private ArrayList<Conference> _conferences;
     private Context _context;
     private Picasso _picasso;
+    private SwipeRefreshLayout _swipeRefreshLayout;
     private ConferenceAdapter.OnConferenceSelected _clickListener;
 
 
@@ -47,10 +49,12 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
         }
     }
 
-    public ConferenceAdapter(Context context, ArrayList<Conference> conferences, OnConferenceSelected clickListener) {
+    public ConferenceAdapter(Context context, ArrayList<Conference> conferences,
+                             OnConferenceSelected clickListener, SwipeRefreshLayout swipeRefreshLayout) {
         _conferences = conferences;
         _context = context;
         _clickListener = clickListener;
+        _swipeRefreshLayout = swipeRefreshLayout;
     }
 
     @Override
@@ -70,7 +74,7 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
                 _clickListener.OnConferenceSelected(_conferences.get(position).getId());
             }
         });
-
+        _swipeRefreshLayout.setRefreshing(true);
         holder.conferenceName.setText(_conferences.get(position).getTitle());
         holder.conferenceDate.setText(new StringBuilder().append(_context.getString(R.string.conferencerow_date_string)).append(_conferences.get(position).getDate()).toString());
         _picasso.load(_conferences.get(position).getImageLink())
@@ -78,13 +82,14 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
                 .into(holder.conferenceImage, new Callback() {
                     @Override
                     public void onSuccess() {
-
+                        _swipeRefreshLayout.setRefreshing(false);
                     }
 
                     @Override
                     public void onError() {
                         Log.v("Picasso Error","Error while fetching image");
                         Log.v("Picasso Error",_conferences.get(position).getImageLink());
+                        _swipeRefreshLayout.setRefreshing(false);
                     }
                 });
     }

@@ -59,7 +59,6 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
         _context = context;
 
         if (context instanceof ConferenceAdapter.OnConferenceSelected) {
@@ -90,7 +89,7 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
 
             _recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
             _recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            _conferenceAdapter = new ConferenceAdapter(activity, new ArrayList<Conference>(), _clickListener);
+            _conferenceAdapter = new ConferenceAdapter(activity, new ArrayList<Conference>(), _clickListener, _swipeRefreshLayout);
 
             _recyclerView.setAdapter(_conferenceAdapter);
         }
@@ -101,7 +100,6 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
     public void getConferences() {
 
         // Turning on progressbar
-        _swipeRefreshLayout.setRefreshing(true);
         _swipeRefreshLayout.setRefreshing(true);
 
         // Removing old data
@@ -150,13 +148,11 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
         if (event.getResponse() instanceof  ArrayList) {
             _conferenceAdapter.addItems((ArrayList<Conference>)event.getResponse());
         }
-        _swipeRefreshLayout.setRefreshing(false);
     }
 
     @Subscribe
     public void onEvent(ApiErrorEvent event) {
         Log.d("API ERROR: ", "" + event.getError());
-        _swipeRefreshLayout.setRefreshing(false);
         Toast.makeText(_context, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
     }
 

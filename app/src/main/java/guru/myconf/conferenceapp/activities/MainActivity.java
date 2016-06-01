@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity
         if (!checkPreferencesManager()) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivityForResult(intent, LOGIN_STATUS);
-
             return false;
         }
         return true;
