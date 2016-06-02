@@ -45,7 +45,7 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
 
             // Initializing Picasso
             _picasso = Picasso.with(_context);
-            _picasso.setIndicatorsEnabled(true);
+            _picasso.setIndicatorsEnabled(false);
         }
     }
 

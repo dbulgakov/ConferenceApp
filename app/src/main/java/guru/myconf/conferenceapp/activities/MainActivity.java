@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        if (checkAuth() && savedInstanceState == null){
+        if (checkAuth()){
             startMainFragment();
         }
     }

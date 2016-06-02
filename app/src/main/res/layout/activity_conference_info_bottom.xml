@@ -31,6 +31,7 @@
 
                 <TextView
                     style="@style/TextAppearance.AppCompat.Headline"
+                    android:id="@+id/confenrece_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorBlack"
@@ -44,6 +45,7 @@
                     android:background="@android:color/black" />
 
                 <TextView
+                    android:id="@+id/confenrece_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="8dp"
@@ -74,11 +76,13 @@
                     android:src="@drawable/place_logo" />
 
                 <TextView
+                    android:id="@+id/confenrece_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:text="Адрес конференции"
+
                     android:textColor="@android:color/primary_text_light" />
 
             </LinearLayout>
@@ -96,6 +100,7 @@
                     android:src="@drawable/clock_logo" />
 
                 <TextView
+                    android:id="@+id/conference_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"

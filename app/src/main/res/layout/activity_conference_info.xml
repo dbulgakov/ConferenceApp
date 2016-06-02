@@ -19,8 +19,11 @@
             <ImageView
                 android:id="@+id/conference_image"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/conference_row_image_size"
                 android:background="@drawable/no_image"
+                android:layout_marginLeft="@dimen/conferencerow_image_margin_side"
+                android:layout_marginRight="@dimen/conferencerow_image_margin_side"
+                android:layout_marginTop="@dimen/conferencerow_image_margin_top"
                 tools:ignore="ContentDescription"
                 android:gravity="top" />
         </android.support.v4.widget.SwipeRefreshLayout>

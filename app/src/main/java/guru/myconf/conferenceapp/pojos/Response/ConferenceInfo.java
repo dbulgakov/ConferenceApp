@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import guru.myconf.conferenceapp.R;
+
 public class ConferenceInfo {
     @SerializedName("conference_id")
     @Expose
@@ -24,11 +26,15 @@ public class ConferenceInfo {
     @Expose
     private String _city;
 
-    @SerializedName("start_time")
+    @SerializedName("address")
+    @Expose
+    private String _address;
+
+    @SerializedName("start_date")
     @Expose
     private Date _startDate;
 
-    @SerializedName("end_time")
+    @SerializedName("end_date")
     @Expose
     private Date _endDate;
 
@@ -65,6 +71,14 @@ public class ConferenceInfo {
 
     public ArrayList<Integer> getImageId() {
         return _photos;
+    }
+
+    public String getMainImageUrl() {
+        return "https://myconf.guru/api/images/4";
+    }
+
+    public String getAddress() {
+        return _address;
     }
 
     public ArrayList<SpeechResponse> getSpeeches() {

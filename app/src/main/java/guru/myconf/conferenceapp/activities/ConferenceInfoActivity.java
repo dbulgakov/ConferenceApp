@@ -11,7 +11,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -28,6 +32,7 @@ import guru.myconf.conferenceapp.api.GeneralApiManager;
 import guru.myconf.conferenceapp.entities.Speech;
 import guru.myconf.conferenceapp.events.ApiErrorEvent;
 import guru.myconf.conferenceapp.events.ApiResultEvent;
+import guru.myconf.conferenceapp.pojos.Response.ConferenceInfo;
 import guru.myconf.conferenceapp.pojos.Response.ConferenceInfoResponse;
 import guru.myconf.conferenceapp.pojos.Response.SpeechResponse;
 import retrofit2.Call;
@@ -43,6 +48,12 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
     @Bind(R.id.speech_toolbar) Toolbar _toolbar;
     @Bind(R.id.swipe_refresh_layout_conference_info) SwipeRefreshLayout _swipeRefreshLayout;
     @Bind(R.id.recycler_view_speeches) RecyclerView _recycleView;
+    @Bind(R.id.confenrece_name) TextView _conferenceTitle;
+    @Bind(R.id.confenrece_description) TextView _conferenceDescription;
+    @Bind(R.id.confenrece_address) TextView _conferenceAddress;
+    @Bind(R.id.conference_date) TextView _conferenceDate;
+    @Bind(R.id.conference_image) ImageView _conferenceImage;
+
 
 
     @Override
@@ -72,9 +83,9 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         _toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                _bus.unregister(this);
                 if (_bus.isRegistered(this))
-                    _bus.unregister(this);;
+                    _bus.unregister(this);
+                finish();
             }
         });
 
@@ -107,15 +118,17 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
             @Override
             public void onResponse(Call<ConferenceInfoResponse> call, Response<ConferenceInfoResponse> response) {
                 try {
-                    Log.d("response", response.message());
-
                     ArrayList<Speech> speeches = new ArrayList<>();
+                    ConferenceInfo conferenceInfo = response.body().getConferenceInfo();
 
                     // Converting into more convenient classes
-                    for (SpeechResponse c : response.body().getConferenceInfo().getSpeeches()) {
+                    for (SpeechResponse c : conferenceInfo.getSpeeches()) {
                         Speech tmp = new Speech(c.getId(), c.getTitle(), c.getDate(), c.getAddress());
                         speeches.add(tmp);
                     }
+
+                    setData(conferenceInfo.getTitle(), conferenceInfo.getDescription(), conferenceInfo.getDate(),
+                            conferenceInfo.getAddress(), conferenceInfo.getMainImageUrl());
 
                     _bus.post(new ApiResultEvent(speeches));
 
@@ -157,10 +170,35 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
     @Subscribe
     public void onEvent(ApiErrorEvent event) {
         Toast.makeText(this, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
-        Log.d("error", event.getError().toString());
         _swipeRefreshLayout.setRefreshing(false);
+        finish();
         _bus.unregister(this);
     }
+
+
+    private void setData(String title, String description, String date, String address, String imageUrl) {
+        _conferenceTitle.setText(title);
+        _conferenceAddress.setText(address);
+        _conferenceDescription.setText(description);
+        _conferenceDate.setText(date);
+
+        Picasso picasso = Picasso.with(this);
+        picasso.setIndicatorsEnabled(false);
+
+        picasso.load(imageUrl)
+                .fit()
+                .into(_conferenceImage, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        _swipeRefreshLayout.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onError() {
+                    }
+                });
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -180,6 +218,5 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         super.onPause();
         if (_bus.isRegistered(this))
             _bus.unregister(this);;
-
     }
 }
