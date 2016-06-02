@@ -72,7 +72,9 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         _toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                _bus.unregister(this);
+                if (_bus.isRegistered(this))
+                    _bus.unregister(this);;
             }
         });
 
@@ -134,7 +136,6 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         });
     }
 
-
     private int getConferenceId() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         return settings.getInt("conferenceId", -1);
@@ -158,6 +159,7 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         Toast.makeText(this, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
         Log.d("error", event.getError().toString());
         _swipeRefreshLayout.setRefreshing(false);
+        _bus.unregister(this);
     }
 
     @Override
@@ -177,6 +179,7 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
     public void onPause() {
         super.onPause();
         if (_bus.isRegistered(this))
-            _bus.unregister(this);
+            _bus.unregister(this);;
+
     }
 }
