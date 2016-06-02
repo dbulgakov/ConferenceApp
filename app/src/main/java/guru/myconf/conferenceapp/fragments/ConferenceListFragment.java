@@ -153,6 +153,8 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
     public void onEvent(ApiErrorEvent event) {
         Log.d("API ERROR: ", "" + event.getError());
         Toast.makeText(_context, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
+        _swipeRefreshLayout.setRefreshing(false);
+        _swipeRefreshLayout.setEnabled(true);
     }
 
     @Override

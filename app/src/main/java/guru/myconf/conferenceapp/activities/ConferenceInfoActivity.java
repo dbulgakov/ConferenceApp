@@ -171,8 +171,8 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
     public void onEvent(ApiErrorEvent event) {
         Toast.makeText(this, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
         _swipeRefreshLayout.setRefreshing(false);
-        finish();
         _bus.unregister(this);
+        finish();
     }
 
 

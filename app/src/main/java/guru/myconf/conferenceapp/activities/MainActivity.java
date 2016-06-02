@@ -7,39 +7,16 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
-
 import com.avast.android.dialogs.fragment.SimpleDialogFragment;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
-import java.net.ConnectException;
-import java.util.ArrayList;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import guru.myconf.conferenceapp.R;
 import guru.myconf.conferenceapp.adapters.ConferenceAdapter;
-import guru.myconf.conferenceapp.api.ApiUrlManager;
-import guru.myconf.conferenceapp.api.GeneralApiManager;
-import guru.myconf.conferenceapp.entities.Conference;
-import guru.myconf.conferenceapp.events.ApiErrorEvent;
-import guru.myconf.conferenceapp.events.ApiResultEvent;
 import guru.myconf.conferenceapp.fragments.ConferenceListFragment;
-import guru.myconf.conferenceapp.pojos.Response.ConferenceResponse;
-import guru.myconf.conferenceapp.pojos.Response.ConferencesResponse;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ConferenceAdapter.OnConferenceSelected{
