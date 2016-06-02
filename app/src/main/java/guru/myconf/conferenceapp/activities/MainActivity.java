@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, _drawer, _toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         _drawer.addDrawerListener(toggle);
-        _navigationView.getMenu().getItem(1).setChecked(true);
+        _navigationView.getMenu().getItem(0).setChecked(true);
         toggle.syncState();
         _navigationView.setNavigationItemSelectedListener(this);
 
@@ -96,9 +96,7 @@ public class MainActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_account) {
-        } else if (id == R.id.nav_conferences) {
-
+        if (id == R.id.nav_conferences) {
         } else if (id == R.id.nav_logout) {
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
             if (settings.contains(getString(R.string.auth_token_key))) {
