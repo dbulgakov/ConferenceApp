@@ -7,15 +7,15 @@
     app:behavior_peekHeight="312dp"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
-
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="35dp">
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="608dp"
             android:layout_marginTop="28dp"
             android:background="@android:color/white"
             android:elevation="4dp"
@@ -71,7 +71,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:alpha="0.36"
-                    android:src="@drawable/ic_place_logo" />
+                    android:src="@drawable/place_logo" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -93,7 +93,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:alpha="0.36"
-                    android:src="@drawable/ic_clock_logo" />
+                    android:src="@drawable/clock_logo" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -105,20 +105,39 @@
 
             </LinearLayout>
 
-
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
-                android:background="#00BCD4">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/activity_horizontal_margin">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:alpha="0.36"
+                    android:src="@drawable/schedule_logo" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Комментарии будут тут"
-                    android:textColor="@android:color/white" />
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:text="Запланированные выступления:"
+                    android:textColor="@android:color/primary_text_light" />
 
-            </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="500dp">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_speeches"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="@dimen/activity_margin_side"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </LinearLayout>
 
         </LinearLayout>
 

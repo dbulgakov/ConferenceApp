@@ -16,12 +16,13 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view_speeches"
+            <ImageView
+                android:id="@+id/conference_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
+                android:background="@drawable/no_image"
+                tools:ignore="ContentDescription"
+                android:gravity="top" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>
