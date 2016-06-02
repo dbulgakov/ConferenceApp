@@ -159,4 +159,24 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         Log.d("error", event.getError().toString());
         _swipeRefreshLayout.setRefreshing(false);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        _bus.unregister(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!_bus.isRegistered(this))
+            _bus.register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (_bus.isRegistered(this))
+            _bus.unregister(this);
+    }
 }
