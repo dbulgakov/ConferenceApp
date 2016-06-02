@@ -51,12 +51,9 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         _navigationView.setNavigationItemSelectedListener(this);
 
-        View header = _navigationView.getHeaderView(0);
-        TextView userName = (TextView) header.findViewById(R.id.user_name);
-        userName.setText(getUserName());
-
         if (checkAuth()){
             startMainFragment();
+            getUserName();
         }
     }
 
@@ -142,10 +139,17 @@ public class MainActivity extends AppCompatActivity
     public void onResume() {
         super.onResume();
         ButterKnife.bind(this);
+        updateUserName();
     }
 
     private String getUserName() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         return settings.getString(getString(R.string.username_key), getString(R.string.username_error_value));
+    }
+
+    private void updateUserName(){
+        View header = _navigationView.getHeaderView(0);
+        TextView userName = (TextView) header.findViewById(R.id.user_name);
+        userName.setText(getUserName());
     }
 }
