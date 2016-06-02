@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
         return areCredentialsValid;
     }
 
-    private void makeLoginRequest(String userLogin, String password) {
+    private void makeLoginRequest(final String userLogin, String password) {
 
         GeneralApiManager apiManager = new GeneralApiManager(this);
 
@@ -129,7 +129,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 try {
                     String token = response.body().getResponseToken();
-                    _bus.post(new ApiResultEvent(token));
+                    String[] tmp = {token, userLogin};
+                    _bus.post(new ApiResultEvent(tmp));
 
                     if (response.code() == 500){
                         throw new Exception();
@@ -150,7 +151,8 @@ public class LoginActivity extends AppCompatActivity {
     @Subscribe
     public void onEvent(ApiResultEvent event) {
         ProgressBarUtility.dismissProgressBar();
-        saveToken(event.getResponse().toString());
+        String[] tmp = (String[]) event.getResponse();
+        saveToken(tmp[0], tmp[1]);
         setResult(RESULT_OK);
         finish();
     }
@@ -171,10 +173,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void saveToken(String token) {
+    private void saveToken(String token, String username) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(getString(R.string.auth_token_key), token);
+        editor.putString(getString(R.string.username_key), username);
         editor.apply();
     }
 

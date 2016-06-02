@@ -47,4 +47,6 @@
     <string name="about_app_fragment_title">О приложении</string>
     <string name="about_app_fragment_body_text">Bulgakov Dmitriy\nmail@dbulgakov.com\n\nConference App v1.0.0</string>
     <string name="about_app_fragment_button_text">OK</string>
+    <string name="username_key">userName</string>
+    <string name="username_error_value">No name</string>
 </resources>

@@ -10,7 +10,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
 import com.avast.android.dialogs.fragment.SimpleDialogFragment;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,6 +28,9 @@ public class MainActivity extends AppCompatActivity
     @Bind(R.id.toolbar) Toolbar _toolbar;
     @Bind(R.id.nav_view) NavigationView _navigationView;
     @Bind(R.id.drawer_layout) DrawerLayout _drawer;
+
+
+    private TextView _userName;
 
     static final int LOGIN_STATUS = 0;
 
@@ -44,7 +51,9 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         _navigationView.setNavigationItemSelectedListener(this);
 
-
+        View header = _navigationView.getHeaderView(0);
+        TextView userName = (TextView) header.findViewById(R.id.user_name);
+        userName.setText(getUserName());
 
         if (checkAuth()){
             startMainFragment();
@@ -135,4 +144,8 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
     }
 
+    private String getUserName() {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        return settings.getString(getString(R.string.username_key), getString(R.string.username_error_value));
+    }
 }
