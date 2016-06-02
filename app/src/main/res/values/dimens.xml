@@ -27,7 +27,7 @@
     <dimen name="conference_card_view_margin_top">40dp</dimen>
 
     <dimen name="frame_layout_margin">50dp</dimen>
-    <dimen name="conferencerow_separatior_margin_top">28dp</dimen>
+    <dimen name="conferencerow_separatior_margin">5dp</dimen>
     <dimen name="conferencerow_separatior_margin_bottom">2dp</dimen>
     <dimen name="conferencerow_separatior_height">1dp</dimen>
     <dimen name="conferencerow_image_margin_side">8dp</dimen>
