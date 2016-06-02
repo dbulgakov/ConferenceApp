@@ -46,7 +46,6 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
     private EventBus _bus = EventBus.getDefault();
 
     @Bind(R.id.speech_toolbar) Toolbar _toolbar;
-    @Bind(R.id.swipe_refresh_layout_conference_info) SwipeRefreshLayout _swipeRefreshLayout;
     @Bind(R.id.recycler_view_speeches) RecyclerView _recycleView;
     @Bind(R.id.confenrece_name) TextView _conferenceTitle;
     @Bind(R.id.confenrece_description) TextView _conferenceDescription;
@@ -74,11 +73,6 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         setSupportActionBar(_toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-        // Setting onRefreshListener for SwipeRefreshLayout
-        _swipeRefreshLayout.setOnRefreshListener(this);
-
-
         // Setting onClickListener to enable back button
         _toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,9 +95,6 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
     }
 
     private void getConferenceInfo(int conferenceId) {
-
-        _swipeRefreshLayout.setRefreshing(true);
-
         // Initializing apiManager to perform requests
         GeneralApiManager apiManager = new GeneralApiManager(this);
         ApiUrlManager apiService = apiManager.getApiService();
@@ -164,13 +155,11 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         if (event.getResponse() instanceof  ArrayList) {
             _speechAdapter.addItems((ArrayList<Speech>)event.getResponse());
         }
-        _swipeRefreshLayout.setRefreshing(false);
     }
 
     @Subscribe
     public void onEvent(ApiErrorEvent event) {
         Toast.makeText(this, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
-        _swipeRefreshLayout.setRefreshing(false);
         _bus.unregister(this);
         finish();
     }
@@ -187,16 +176,7 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
 
         picasso.load(imageUrl)
                 .fit()
-                .into(_conferenceImage, new com.squareup.picasso.Callback() {
-                    @Override
-                    public void onSuccess() {
-                        _swipeRefreshLayout.setRefreshing(false);
-                    }
-
-                    @Override
-                    public void onError() {
-                    }
-                });
+                .into(_conferenceImage);
     }
 
 

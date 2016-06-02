@@ -11,18 +11,12 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh_layout_conference_info"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <ImageView
-                android:id="@+id/conference_image"
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                tools:ignore="ContentDescription"
-                android:gravity="top" />
-        </android.support.v4.widget.SwipeRefreshLayout>
+        <ImageView
+            android:id="@+id/conference_image"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            tools:ignore="ContentDescription"
+            android:gravity="top" />
 
     </LinearLayout>
 
