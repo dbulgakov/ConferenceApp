@@ -216,7 +216,6 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
     @Override
     public void onPause() {
         super.onPause();
-        if (_bus.isRegistered(this))
-            _bus.unregister(this);;
+        _bus.unregister(this);
     }
 }

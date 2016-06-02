@@ -161,4 +161,17 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
     public void onRefresh() {
         getConferences();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!_bus.isRegistered(this))
+            _bus.register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        _bus.unregister(this);
+    }
 }
