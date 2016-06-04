@@ -15,7 +15,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="608dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
             android:background="@android:color/white"
             android:elevation="4dp"
@@ -144,7 +144,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_view_speeches"
                     android:layout_width="match_parent"
-                    android:layout_marginStart="50dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginLeft="@dimen/activity_margin_side"
                     android:layout_height="match_parent"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
@@ -172,9 +172,7 @@
                     android:textColor="@android:color/primary_text_light" />
 
             </LinearLayout>
-
         </LinearLayout>
-
     </FrameLayout>
 
 </android.support.v4.widget.NestedScrollView>
