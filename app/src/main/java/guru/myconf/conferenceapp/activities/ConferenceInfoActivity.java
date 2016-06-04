@@ -175,7 +175,6 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         picasso.setIndicatorsEnabled(false);
 
         picasso.load(imageUrl)
-                .fit()
                 .into(_conferenceImage);
     }
 
