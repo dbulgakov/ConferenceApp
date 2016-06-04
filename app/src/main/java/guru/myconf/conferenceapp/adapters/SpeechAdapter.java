@@ -24,11 +24,12 @@ public class SpeechAdapter extends RecyclerView.Adapter<SpeechAdapter.ViewHolder
     }
 
     public class ConferenceViewHolder extends ViewHolder {
-        TextView speechTitle;
+        TextView speechTitle, speechTime;
 
         public ConferenceViewHolder(View v) {
             super(v);
             speechTitle = (TextView) v.findViewById(R.id.speech_title);
+            speechTime = (TextView) v.findViewById(R.id.speech_time);
         }
     }
 
@@ -49,6 +50,7 @@ public class SpeechAdapter extends RecyclerView.Adapter<SpeechAdapter.ViewHolder
         ConferenceViewHolder holder = (ConferenceViewHolder) viewHolder;
 
         holder.speechTitle.setText(_speeches.get(position).getTitle());
+        holder.speechTime.setText("\nВремя проведения: " + _speeches.get(position).getDate());
     }
 
     @Override

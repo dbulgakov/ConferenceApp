@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class SpeechResponse {
     @SerializedName("speech_id")
@@ -35,7 +36,7 @@ public class SpeechResponse {
     @Expose
     private SpeechAuthor _author;
 
-    private SimpleDateFormat _dateFormatter = new SimpleDateFormat("dd.MM");
+    private SimpleDateFormat _dateFormatter = new SimpleDateFormat("HH:mm");
 
     public int getId() {
         return _id;
