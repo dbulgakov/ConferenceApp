@@ -171,11 +171,23 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         _conferenceDescription.setText(description);
         _conferenceDate.setText(date);
 
-        Picasso picasso = Picasso.with(this);
+        final Picasso picasso = Picasso.with(this);
         picasso.setIndicatorsEnabled(false);
 
+        com.squareup.picasso.Callback callback = new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+            }
+
+            @Override
+            public void onError() {
+                picasso.load(R.drawable.error_image_big).into(_conferenceImage);
+            }
+        };
+
+
         picasso.load(imageUrl)
-                .into(_conferenceImage);
+                .into(_conferenceImage, callback);
     }
 
 

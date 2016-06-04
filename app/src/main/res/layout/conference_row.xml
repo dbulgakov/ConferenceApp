@@ -19,7 +19,7 @@
             android:id="@+id/conference_image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/conference_row_image_size"
-            android:src="@drawable/no_image"
+            android:background="@drawable/no_image"
             android:layout_marginLeft="@dimen/conferencerow_image_margin_side"
             android:layout_marginRight="@dimen/conferencerow_image_margin_side"
             android:layout_marginTop="@dimen/conferencerow_image_margin_top"

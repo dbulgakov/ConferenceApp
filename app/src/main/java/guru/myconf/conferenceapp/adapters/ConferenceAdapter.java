@@ -66,7 +66,7 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        ConferenceViewHolder holder = (ConferenceViewHolder) viewHolder;
+        final ConferenceViewHolder holder = (ConferenceViewHolder) viewHolder;
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +89,7 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
                     public void onError() {
                         Log.v("Picasso Error","Error while fetching image");
                         Log.v("Picasso Error",_conferences.get(position).getImageLink());
+                        _picasso.load(R.drawable.error_image).into(holder.conferenceImage);
                         _swipeRefreshLayout.setRefreshing(false);
                     }
                 });
