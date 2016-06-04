@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,8 +53,7 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
     @Bind(R.id.confenrece_address) TextView _conferenceAddress;
     @Bind(R.id.conference_date) TextView _conferenceDate;
     @Bind(R.id.conference_image) ImageView _conferenceImage;
-
-
+    @Bind(R.id.progressBar) ProgressBar _progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +82,9 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
                 finish();
             }
         });
+
+        // Turning progressbar on
+        _progressBar.setIndeterminate(true);
 
         // Initializing Adapter
         _speechAdapter = new SpeechAdapter(this, new ArrayList<Speech>());
@@ -177,10 +180,14 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         com.squareup.picasso.Callback callback = new com.squareup.picasso.Callback() {
             @Override
             public void onSuccess() {
+                _progressBar.setIndeterminate(false);
+                _progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onError() {
+                _progressBar.setIndeterminate(false);
+                _progressBar.setVisibility(View.GONE);
                 picasso.load(R.drawable.error_image_big).into(_conferenceImage);
             }
         };
