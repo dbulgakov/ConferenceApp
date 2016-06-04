@@ -38,9 +38,14 @@ public class ConferenceInfo {
     @Expose
     private Date _endDate;
 
-    @SerializedName("photos")
+    @SerializedName("main_image")
     @Expose
-    private ArrayList<Integer> _photos;
+    private int _main_image_id;
+
+    @SerializedName("main_image_bigger")
+    @Expose
+    private int _main_image_bigger_id;
+
 
     @SerializedName("scheduled_speeches")
     @Expose
@@ -69,12 +74,8 @@ public class ConferenceInfo {
         return _dateFormatter.format(_startDate) + " - " + _dateFormatter.format(_endDate);
     }
 
-    public ArrayList<Integer> getImageId() {
-        return _photos;
-    }
-
-    public String getMainImageUrl() {
-        return "https://myconf.guru/api/images/4";
+    public String getBiggerImageUrl() {
+        return "https://myconf.guru/api/images/" + _main_image_bigger_id;
     }
 
     public String getAddress() {

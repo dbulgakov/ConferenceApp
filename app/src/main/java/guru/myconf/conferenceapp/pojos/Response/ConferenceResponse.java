@@ -23,7 +23,7 @@ public class ConferenceResponse {
     @Expose
     private Date _endDate;
 
-    @SerializedName("photos")
+    @SerializedName("main_image")
     @Expose
     private int _imageId;
 

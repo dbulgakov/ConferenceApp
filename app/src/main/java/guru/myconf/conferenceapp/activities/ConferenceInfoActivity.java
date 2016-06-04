@@ -119,7 +119,7 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
                     }
 
                     setData(conferenceInfo.getTitle(), conferenceInfo.getDescription(), conferenceInfo.getDate(),
-                            conferenceInfo.getAddress(), conferenceInfo.getMainImageUrl());
+                            conferenceInfo.getAddress(), conferenceInfo.getBiggerImageUrl());
 
                     _bus.post(new ApiResultEvent(speeches));
 
