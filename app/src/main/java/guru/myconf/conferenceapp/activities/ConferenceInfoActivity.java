@@ -202,6 +202,10 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
             @Override
             public void onResponse(Call<ConferenceCommentsResponse> call, Response<ConferenceCommentsResponse> response) {
                 try {
+                    if (response.code() == 500 || response.body().getResponseComments() == null){
+                        throw new Exception();
+                    }
+
                     ArrayList<Comment> comments = new ArrayList<>();
 
                     // Converting into more convenient classes
@@ -210,10 +214,6 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
                     }
 
                     mBus.post(new ApiResultEvent(comments));
-
-                    if (response.code() == 500){
-                        throw new Exception();
-                    }
                 }
                 catch (Exception e){
                     mBus.post(new ApiErrorEvent(e));
@@ -284,7 +284,7 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
     @Subscribe
     public void onEvent(ApiResultEvent event) {
         if (event.getResponse() instanceof  ArrayList) {
-            if (((ArrayList) event.getResponse()).get(0) instanceof Speech)
+            if (((ArrayList) event.getResponse()).toArray()[0] instanceof Speech)
                 mSpeechAdapter.addItems((ArrayList<Speech>)event.getResponse());
             else {
                 mCommentAdapter.addItems((ArrayList<Comment>)event.getResponse());

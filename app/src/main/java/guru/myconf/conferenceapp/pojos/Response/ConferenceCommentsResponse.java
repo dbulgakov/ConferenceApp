@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class ConferenceCommentsResponse extends BasicResponse{
     public ConferenceCommentsResponse() {
         super();
+        mComments = new ArrayList<>();
     }
 
     @SerializedName("comments")
