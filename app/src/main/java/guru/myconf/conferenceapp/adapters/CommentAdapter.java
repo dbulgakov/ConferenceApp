@@ -52,7 +52,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         ConferenceViewHolder holder = (ConferenceViewHolder) viewHolder;
 
         holder.commentText.setText(_comments.get(position).getText());
-        holder.commentAuthor.setText(_comments.get(position).getAuthor().getFullName());
+        holder.commentAuthor.setText(" — " + _comments.get(position).getAuthor().getFullName());
         holder.commentTime.setText(_comments.get(position).getDateString());
     }
 
