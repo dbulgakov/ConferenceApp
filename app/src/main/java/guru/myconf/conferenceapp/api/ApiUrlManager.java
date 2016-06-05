@@ -32,5 +32,5 @@ public interface ApiUrlManager {
     Call<ConferenceCommentsResponse> getConferenceComments(@Path("id") int conferenceId);
 
     @POST("conferences/{id}/comments")
-    Call<BasicResponse> addComment(@Body PostCommentRequest postCommentRequest);
+    Call<BasicResponse> addComment(@Path("id") int conferenceId, @Body PostCommentRequest postCommentRequest);
 }

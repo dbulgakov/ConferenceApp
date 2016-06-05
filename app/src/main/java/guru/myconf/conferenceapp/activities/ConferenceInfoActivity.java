@@ -1,5 +1,6 @@
 package guru.myconf.conferenceapp.activities;
 
+import android.accounts.AccountsException;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -14,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -38,7 +40,11 @@ import guru.myconf.conferenceapp.api.GeneralApiManager;
 import guru.myconf.conferenceapp.entities.Comment;
 import guru.myconf.conferenceapp.entities.Speech;
 import guru.myconf.conferenceapp.events.ApiErrorEvent;
+import guru.myconf.conferenceapp.events.ApiPostCommentError;
+import guru.myconf.conferenceapp.events.ApiPostCommentResult;
 import guru.myconf.conferenceapp.events.ApiResultEvent;
+import guru.myconf.conferenceapp.pojos.Request.PostCommentRequest;
+import guru.myconf.conferenceapp.pojos.Response.BasicResponse;
 import guru.myconf.conferenceapp.pojos.Response.ConferenceComment;
 import guru.myconf.conferenceapp.pojos.Response.ConferenceCommentsResponse;
 import guru.myconf.conferenceapp.pojos.Response.ConferenceInfo;
@@ -65,6 +71,8 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
     @Bind(R.id.conference_date) TextView _conferenceDate;
     @Bind(R.id.conference_image) ImageView _conferenceImage;
     @Bind(R.id.progressBar) ProgressBar _progressBar;
+    @Bind(R.id.add_comment_button) Button _addCommentButton;
+    @Bind(R.id.add_comment_text) TextView _addCommentText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +101,19 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
                 finish();
             }
         });
+
+        // Add comment button init
+        _addCommentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkComment(_addCommentText.getText().toString())){
+                    addConferenceComment(_conferenceId, _addCommentText.getText().toString());
+                } else {
+                    _addCommentText.setError("Необходимо ввести текст комментария.");
+                }
+            }
+        });
+
 
         // Turning progressbar on
         _progressBar.setIndeterminate(true);
@@ -164,6 +185,11 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         return settings.getInt("conferenceId", -1);
     }
 
+    private String getAuthKey() {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        return settings.getString(getString(R.string.auth_token_key), "");
+    }
+
     private void getConferenceComments(int conferenceId) {
         // Initializing apiManager to perform requests
         GeneralApiManager apiManager = new GeneralApiManager(this);
@@ -204,14 +230,53 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         });
     }
 
+    private void addConferenceComment(int conferenceId, String text) {
+        // Initializing apiManager to perform requests
+        GeneralApiManager apiManager = new GeneralApiManager(this);
+        ApiUrlManager apiService = apiManager.getApiService();
+
+        // Removing old data
+        _commentAdapter.removeItems();
+
+        String authToken = getAuthKey();
+
+        Call<BasicResponse> call = apiService.addComment(_conferenceId, new PostCommentRequest(authToken, text));
+
+        call.enqueue(new Callback<BasicResponse>() {
+
+            @Override
+            public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                try {
+                    Log.d("eee", "" + response.code());
+                    _bus.post(new ApiPostCommentResult());
+
+                    if (response.code() == 401){
+                        throw new AccountsException();
+                    }
+
+
+                    if (response.code() == 500){
+                        throw new Exception();
+                    }
+                }
+                catch (Exception e){
+                    _bus.post(new ApiPostCommentError(e));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BasicResponse> call, Throwable t) {
+                _bus.post(new ApiPostCommentError(new ConnectException()));
+            }
+        });
+    }
+
 
     public void UpdateData()
     {
         getConferenceInfo(_conferenceId);
         getConferenceComments(_conferenceId);
     }
-
-
 
 
     @Override
@@ -234,6 +299,24 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
     public void onEvent(ApiErrorEvent event) {
         Log.d("error", event.getError().getMessage());
         Toast.makeText(this, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
+        _bus.unregister(this);
+        finish();
+    }
+
+    @Subscribe
+    public void onEvent(ApiPostCommentResult event) {
+        Toast.makeText(this, "Комментарий успешно опубликован.", Toast.LENGTH_SHORT).show();
+        getConferenceComments(_conferenceId);
+    }
+
+    @Subscribe
+    public void onEvent(ApiPostCommentError event) {
+        Log.d("error", event.getError().getMessage());
+        if (event.getError() instanceof AccountsException) {
+
+        } else {
+            Toast.makeText(this, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
+        }
         _bus.unregister(this);
         finish();
     }
@@ -269,15 +352,18 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
     }
 
     private void UpdateLayout() {
-        EditText comments = (EditText) findViewById(R.id.add_comment_text);
-        Drawable drawable = comments.getBackground(); // get current EditText drawable
+        Drawable drawable = _addCommentText.getBackground(); // get current EditText drawable
         drawable.setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
 
         if(Build.VERSION.SDK_INT > 16) {
-            comments.setBackground(drawable);
+            _addCommentText.setBackground(drawable);
         }else{
-            comments.setBackgroundDrawable(drawable);
+            _addCommentText.setBackgroundDrawable(drawable);
         }
+    }
+
+    private boolean checkComment(String text) {
+        return !text.isEmpty();
     }
 
     @Override
