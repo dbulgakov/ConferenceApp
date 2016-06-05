@@ -1,36 +1,36 @@
 package guru.myconf.conferenceapp.entities;
 
 public class User {
-    private String _firstName;
-    private String _lastName;
-    private int _id;
+    private String mFirstName;
+    private String mLastName;
+    private int mId;
 
     public User(User user) {
-        _firstName = user.getFirstName();
-        _lastName = user.getLastName();
-        user._id = user.getId();
+        mFirstName = user.getFirstName();
+        mLastName = user.getLastName();
+        user.mId = user.getId();
     }
 
 
     public User(String firstName, String lastName, int id){
-        _firstName = firstName;
-        _lastName = lastName;
-        _id = id;
+        mFirstName = firstName;
+        mLastName = lastName;
+        mId = id;
     }
 
-    public String getFirstName(){
-        return _firstName;
+    private String getFirstName(){
+        return mFirstName;
     }
 
-    public String getLastName(){
-        return _lastName;
+    private String getLastName(){
+        return mLastName;
     }
 
-    public int getId(){
-        return _id;
+    private int getId(){
+        return mId;
     }
 
     public String getFullName() {
-        return _firstName + " " + _lastName;
+        return mFirstName + " " + mLastName;
     }
 }

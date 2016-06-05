@@ -1,31 +1,31 @@
 package guru.myconf.conferenceapp.entities;
 
 public class Speech {
-    private int _id;
-    private String _title;
-    private String _address;
-    private String _date;
+    private int mId;
+    private String mTitle;
+    private String mAddress;
+    private String mDate;
 
     public Speech(int id, String title, String date, String address) {
-        _id = id;
-        _title = title;
-        _address = address;
-        _date = date;
+        mId = id;
+        mTitle = title;
+        mAddress = address;
+        mDate = date;
     }
 
     public int getId() {
-        return _id;
+        return mId;
     }
 
     public String getTitle() {
-        return _title;
+        return mTitle;
     }
 
     public String getAddress() {
-        return _address;
+        return mAddress;
     }
 
     public String getDate() {
-        return _date;
+        return mDate;
     }
 }

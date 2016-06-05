@@ -20,11 +20,11 @@ import guru.myconf.conferenceapp.entities.Conference;
 
 public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.ViewHolder> {
 
-    private ArrayList<Conference> _conferences;
-    private Context _context;
-    private Picasso _picasso;
-    private SwipeRefreshLayout _swipeRefreshLayout;
-    private ConferenceAdapter.OnConferenceSelected _clickListener;
+    private ArrayList<Conference> mConferences;
+    private Context mContext;
+    private Picasso mPicasso;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private ConferenceAdapter.OnConferenceSelected mClickListener;
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -44,17 +44,17 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
             conferenceImage = (ImageView) v.findViewById(R.id.conference_image);
 
             // Initializing Picasso
-            _picasso = Picasso.with(_context);
-            _picasso.setIndicatorsEnabled(false);
+            mPicasso = Picasso.with(mContext);
+            mPicasso.setIndicatorsEnabled(false);
         }
     }
 
     public ConferenceAdapter(Context context, ArrayList<Conference> conferences,
                              OnConferenceSelected clickListener, SwipeRefreshLayout swipeRefreshLayout) {
-        _conferences = conferences;
-        _context = context;
-        _clickListener = clickListener;
-        _swipeRefreshLayout = swipeRefreshLayout;
+        mConferences = conferences;
+        mContext = context;
+        mClickListener = clickListener;
+        mSwipeRefreshLayout = swipeRefreshLayout;
     }
 
     @Override
@@ -71,42 +71,42 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                _clickListener.OnConferenceSelected(_conferences.get(position).getId());
+                mClickListener.OnConferenceSelected(mConferences.get(position).getId());
             }
         });
-        _swipeRefreshLayout.setRefreshing(true);
-        holder.conferenceName.setText(_conferences.get(position).getTitle());
-        holder.conferenceDate.setText(new StringBuilder().append(_context.getString(R.string.conferencerow_date_string)).append(_conferences.get(position).getDate()).toString());
-        _picasso.load(_conferences.get(position).getImageLink())
+        mSwipeRefreshLayout.setRefreshing(true);
+        holder.conferenceName.setText(mConferences.get(position).getTitle());
+        holder.conferenceDate.setText(new StringBuilder().append(mContext.getString(R.string.conferencerow_date_string)).append(mConferences.get(position).getDate()).toString());
+        mPicasso.load(mConferences.get(position).getImageLink())
                 .fit()
                 .into(holder.conferenceImage, new Callback() {
                     @Override
                     public void onSuccess() {
-                        _swipeRefreshLayout.setRefreshing(false);
+                        mSwipeRefreshLayout.setRefreshing(false);
                     }
 
                     @Override
                     public void onError() {
                         Log.v("Picasso Error","Error while fetching image");
-                        Log.v("Picasso Error",_conferences.get(position).getImageLink());
-                        _picasso.load(R.drawable.error_image).into(holder.conferenceImage);
-                        _swipeRefreshLayout.setRefreshing(false);
+                        Log.v("Picasso Error", mConferences.get(position).getImageLink());
+                        mPicasso.load(R.drawable.error_image).into(holder.conferenceImage);
+                        mSwipeRefreshLayout.setRefreshing(false);
                     }
                 });
     }
 
     @Override
     public int getItemCount() {
-        return _conferences.size();
+        return mConferences.size();
     }
 
     public void addItems(ArrayList<Conference> conferences) {
-        _conferences.addAll(conferences);
+        mConferences.addAll(conferences);
         notifyDataSetChanged();
     }
 
     public void removeItems() {
-        _conferences = new ArrayList<>();
+        mConferences = new ArrayList<>();
         notifyDataSetChanged();
     }
 

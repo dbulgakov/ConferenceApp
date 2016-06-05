@@ -1,6 +1,5 @@
 package guru.myconf.conferenceapp.api;
 
-import guru.myconf.conferenceapp.entities.Conference;
 import guru.myconf.conferenceapp.pojos.Request.LoginRequest;
 import guru.myconf.conferenceapp.pojos.Request.PostCommentRequest;
 import guru.myconf.conferenceapp.pojos.Request.RegistrationRequest;

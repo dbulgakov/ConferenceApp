@@ -6,13 +6,13 @@ import com.google.gson.annotations.SerializedName;
 public class ConferenceInfoResponse extends BasicResponse{
     @SerializedName("conference")
     @Expose
-    private ConferenceInfo _conference;
+    private ConferenceInfo mConference;
 
     public ConferenceInfoResponse() {
         super();
     }
 
     public ConferenceInfo getConferenceInfo(){
-        return _conference;
-    };
+        return mConference;
+    }
 }

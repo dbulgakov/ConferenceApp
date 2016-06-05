@@ -7,82 +7,80 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import guru.myconf.conferenceapp.R;
-
 public class ConferenceInfo {
     @SerializedName("conference_id")
     @Expose
-    private int _id;
+    private int mId;
 
     @SerializedName("title")
     @Expose
-    private String _title;
+    private String mTitle;
 
     @SerializedName("description")
     @Expose
-    private String _description;
+    private String mDescription;
 
     @SerializedName("city_name")
     @Expose
-    private String _city;
+    private String mCity;
 
     @SerializedName("address")
     @Expose
-    private String _address;
+    private String mAddress;
 
     @SerializedName("start_date")
     @Expose
-    private Date _startDate;
+    private Date mStartDate;
 
     @SerializedName("end_date")
     @Expose
-    private Date _endDate;
+    private Date mEndDate;
 
     @SerializedName("main_image")
     @Expose
-    private int _main_image_id;
+    private int mMainImageId;
 
     @SerializedName("main_image_bigger")
     @Expose
-    private int _main_image_bigger_id;
+    private int mMainImageBiggerId;
 
 
     @SerializedName("scheduled_speeches")
     @Expose
-    private ArrayList<SpeechResponse> _speeches;
+    private ArrayList<SpeechResponse> mSpeeches;
 
 
     private SimpleDateFormat _dateFormatter = new SimpleDateFormat("dd.MM");
 
     public int getId() {
-        return _id;
+        return mId;
     }
 
     public String getTitle() {
-        return _title;
+        return mTitle;
     }
 
     public String getDescription() {
-        return _description;
+        return mDescription;
     }
 
     public String getCity() {
-        return _city;
+        return mCity;
     }
 
     public String getDate() {
-        return _dateFormatter.format(_startDate) + " - " + _dateFormatter.format(_endDate);
+        return _dateFormatter.format(mStartDate) + " - " + _dateFormatter.format(mEndDate);
     }
 
     public String getBiggerImageUrl() {
-        return "https://myconf.guru/api/images/" + _main_image_bigger_id;
+        return "https://myconf.guru/api/images/" + mMainImageBiggerId;
     }
 
     public String getAddress() {
-        return _address;
+        return mAddress;
     }
 
     public ArrayList<SpeechResponse> getSpeeches() {
-        return _speeches;
+        return mSpeeches;
     }
 }

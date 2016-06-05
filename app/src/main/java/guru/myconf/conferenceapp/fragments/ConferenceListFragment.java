@@ -1,8 +1,6 @@
 package guru.myconf.conferenceapp.fragments;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -14,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -39,31 +36,27 @@ import retrofit2.Response;
 public class ConferenceListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
 
-    private ConferenceAdapter.OnConferenceSelected _clickListener;
-    private RecyclerView.LayoutManager _layoutManager;
-    private ConferenceAdapter _conferenceAdapter;
-    private SwipeRefreshLayout _swipeRefreshLayout;
-    private RecyclerView _recyclerView;
-    private Context _context;
+    private ConferenceAdapter.OnConferenceSelected mClickListener;
+    private ConferenceAdapter mConferenceAdapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
+    private Context mContext;
 
-    private EventBus _bus = EventBus.getDefault();
+    private EventBus mBus = EventBus.getDefault();
 
     public static ConferenceListFragment newInstance() {
         return new ConferenceListFragment();
     }
 
-    public ConferenceListFragment() {
-    }
-
-
+    public ConferenceListFragment() {}
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        _context = context;
+        mContext = context;
 
         if (context instanceof ConferenceAdapter.OnConferenceSelected) {
-            _clickListener = (ConferenceAdapter.OnConferenceSelected) context;
+            mClickListener = (ConferenceAdapter.OnConferenceSelected) context;
         } else {
             throw new ClassCastException(context.toString() + " OnConferenceSelected is not implemented");
         }
@@ -80,20 +73,20 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
         final Activity activity = getActivity();
 
         //EventBus
-        _bus.register(this);
+        mBus.register(this);
 
         if (savedInstanceState == null)
         {
-            _swipeRefreshLayout = (SwipeRefreshLayout) activity.findViewById(R.id.swipe_refresh_layout_main);
-            _swipeRefreshLayout.setOnRefreshListener(this);
-            _swipeRefreshLayout.setRefreshing(true);
+            mSwipeRefreshLayout = (SwipeRefreshLayout) activity.findViewById(R.id.swipe_refresh_layout_main);
+            mSwipeRefreshLayout.setOnRefreshListener(this);
+            mSwipeRefreshLayout.setRefreshing(true);
 
-            _recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_conferences);
-            _recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            _recyclerView.setHasFixedSize(true);
-            _conferenceAdapter = new ConferenceAdapter(activity, new ArrayList<Conference>(), _clickListener, _swipeRefreshLayout);
+            mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_conferences);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mRecyclerView.setHasFixedSize(true);
+            mConferenceAdapter = new ConferenceAdapter(activity, new ArrayList<Conference>(), mClickListener, mSwipeRefreshLayout);
 
-            _recyclerView.setAdapter(_conferenceAdapter);
+            mRecyclerView.setAdapter(mConferenceAdapter);
         }
 
         getConferences();
@@ -102,13 +95,13 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
     public void getConferences() {
 
         // Turning on progressbar
-        _swipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setRefreshing(true);
 
         // Removing old data
-        _conferenceAdapter.removeItems();
+        mConferenceAdapter.removeItems();
 
         // Initializing apiManager to perform requests
-        GeneralApiManager apiManager = new GeneralApiManager(_context);
+        GeneralApiManager apiManager = new GeneralApiManager(mContext);
 
         ApiUrlManager apiService = apiManager.getApiService();
 
@@ -127,20 +120,20 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
                                 c.getTitle(), c.getDate(), getString(R.string.image_server_address) + c.getImageId());
                         conferences.add(tmp);
                     }
-                    _bus.post(new ApiResultEvent(conferences));
+                    mBus.post(new ApiResultEvent(conferences));
 
                     if (response.code() == 500){
                         throw new Exception();
                     }
                 }
                 catch (Exception e){
-                    _bus.post(new ApiErrorEvent(e));
+                    mBus.post(new ApiErrorEvent(e));
                 }
             }
 
             @Override
             public void onFailure(Call<ConferencesResponse> call, Throwable t) {
-                _bus.post(new ApiErrorEvent(new ConnectException()));
+                mBus.post(new ApiErrorEvent(new ConnectException()));
             }
         });
     }
@@ -148,16 +141,16 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
     @Subscribe
     public void onEvent(ApiResultEvent event) {
         if (event.getResponse() instanceof  ArrayList) {
-            _conferenceAdapter.addItems((ArrayList<Conference>)event.getResponse());
+            mConferenceAdapter.addItems((ArrayList<Conference>)event.getResponse());
         }
     }
 
     @Subscribe
     public void onEvent(ApiErrorEvent event) {
         Log.d("API ERROR: ", "" + event.getError());
-        Toast.makeText(_context, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
-        _swipeRefreshLayout.setRefreshing(false);
-        _swipeRefreshLayout.setEnabled(true);
+        Toast.makeText(mContext, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
+        mSwipeRefreshLayout.setRefreshing(false);
+        mSwipeRefreshLayout.setEnabled(true);
     }
 
     @Override
@@ -168,13 +161,13 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
     @Override
     public void onResume() {
         super.onResume();
-        if (!_bus.isRegistered(this))
-            _bus.register(this);
+        if (!mBus.isRegistered(this))
+            mBus.register(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        _bus.unregister(this);
+        mBus.unregister(this);
     }
 }

@@ -6,16 +6,16 @@ import android.content.Context;
 import guru.myconf.conferenceapp.R;
 
 public class ProgressBarUtility {
-    private static ProgressDialog _progressDialog;
+    private static ProgressDialog PROGRESS_BAR_DIALOG;
 
 
     public static void showProgressBar(Context activity, String message) {
-        if (_progressDialog == null)
+        if (PROGRESS_BAR_DIALOG == null)
         {
-            _progressDialog = new ProgressDialog(activity, R.style.AppTheme_Dark_Dialog);
-            _progressDialog.setIndeterminate(true);
-            _progressDialog.setMessage(message);
-            _progressDialog.show();
+            PROGRESS_BAR_DIALOG = new ProgressDialog(activity, R.style.AppTheme_Dark_Dialog);
+            PROGRESS_BAR_DIALOG.setIndeterminate(true);
+            PROGRESS_BAR_DIALOG.setMessage(message);
+            PROGRESS_BAR_DIALOG.show();
         }
         else {
             throw new IllegalStateException();
@@ -24,9 +24,9 @@ public class ProgressBarUtility {
 
     public static void dismissProgressBar()
     {
-        if (_progressDialog != null) {
-            _progressDialog.dismiss();
+        if (PROGRESS_BAR_DIALOG != null) {
+            PROGRESS_BAR_DIALOG.dismiss();
         }
-        _progressDialog = null;
+        PROGRESS_BAR_DIALOG = null;
     }
 }

@@ -4,32 +4,28 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Comment {
-    private String _text;
-    private Date _date;
-    private User _author;
+    private String mText;
+    private Date mDate;
+    private User mAuthor;
 
-    private SimpleDateFormat _dateFormatter = new SimpleDateFormat("d MMMM HH:mm");
+    private SimpleDateFormat mDateFormatter = new SimpleDateFormat("d MMMM HH:mm");
 
     public Comment(String text, Date date, User user){
-        _text = text;
-        _date = date;
-        _author = user;
+        mText = text;
+        mDate = date;
+        mAuthor = user;
     }
 
     public String getText(){
-        return _text;
-    }
-
-    public Date getDate(){
-        return _date;
+        return mText;
     }
 
     public String getDateString(){
-        return _dateFormatter.format(_date);
+        return mDateFormatter.format(mDate);
     }
 
     public User getAuthor()
     {
-        return _author;
+        return mAuthor;
     }
 }

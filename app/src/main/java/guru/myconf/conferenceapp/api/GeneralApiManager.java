@@ -8,18 +8,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GeneralApiManager {
 
-    private Retrofit _retrofit;
-    private Context _context;
+    private Retrofit mRetrofit;
+    private Context mContext;
 
     public GeneralApiManager(Context context) {
-        _context = context;
-        _retrofit = new Retrofit.Builder()
+        mContext = context;
+        mRetrofit = new Retrofit.Builder()
                 .baseUrl(context.getString(R.string.conferenceguru_api_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
 
     public ApiUrlManager getApiService() {
-        return _retrofit.create(ApiUrlManager.class);
+        return mRetrofit.create(ApiUrlManager.class);
     }
 }

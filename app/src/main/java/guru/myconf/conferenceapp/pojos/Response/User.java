@@ -6,38 +6,37 @@ import com.google.gson.annotations.SerializedName;
 public class User {
     @SerializedName("id")
     @Expose
-    private int _id;
+    private int mId;
 
     @SerializedName("first_name")
     @Expose
-    private String _first_name;
+    private String mFirstName;
 
     @SerializedName("last_name")
     @Expose
-    private String _last_name;
+    private String mLastName;
 
     @SerializedName("photo_id")
     @Expose
-    private int _photo_id;
+    private int mPhotoId;
 
     public int getId() {
-        return _id;
+        return mId;
     }
 
     public String getFirstName() {
-        return _first_name;
+        return mFirstName;
     }
 
     public String getLastName() {
-        return _last_name;
+        return mLastName;
     }
 
     public int getPhotoId() {
-        return _id;
+        return mId;
     }
 
     public guru.myconf.conferenceapp.entities.User convertToEntityUser() {
-        guru.myconf.conferenceapp.entities.User tmpUser = new guru.myconf.conferenceapp.entities.User(_first_name, _last_name, _id);
-        return tmpUser;
+        return new guru.myconf.conferenceapp.entities.User(mFirstName, mLastName, mId);
     }
 }

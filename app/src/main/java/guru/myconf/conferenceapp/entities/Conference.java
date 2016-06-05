@@ -1,31 +1,31 @@
 package guru.myconf.conferenceapp.entities;
 
 public class Conference {
-    private int _id;
-    private String _title;
-    private String _date;
-    private String _imageLink;
+    private int mId;
+    private String mTitle;
+    private String mDate;
+    private String mImageLink;
 
     public Conference(int id, String title, String date, String imageLink) {
-        _id = id;
-        _title = title;
-        _date = date;
-        _imageLink = imageLink;
+        mId = id;
+        mTitle = title;
+        mDate = date;
+        mImageLink = imageLink;
     }
 
     public int getId() {
-        return _id;
+        return mId;
     }
 
     public String getTitle() {
-        return _title;
+        return mTitle;
     }
 
     public String getDate() {
-        return _date;
+        return mDate;
     }
 
     public String getImageLink() {
-        return _imageLink;
+        return mImageLink;
     }
 }

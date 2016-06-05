@@ -13,8 +13,8 @@ import guru.myconf.conferenceapp.entities.Speech;
 
 public class SpeechAdapter extends RecyclerView.Adapter<SpeechAdapter.ViewHolder> {
 
-    private ArrayList<Speech> _speeches;
-    private Context _context;
+    private ArrayList<Speech> mSpeeches;
+    private Context mContext;
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -34,8 +34,8 @@ public class SpeechAdapter extends RecyclerView.Adapter<SpeechAdapter.ViewHolder
     }
 
     public SpeechAdapter(Context context, ArrayList<Speech> speeches) {
-        _speeches = speeches;
-        _context = context;
+        mSpeeches = speeches;
+        mContext = context;
     }
 
     @Override
@@ -49,22 +49,22 @@ public class SpeechAdapter extends RecyclerView.Adapter<SpeechAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         ConferenceViewHolder holder = (ConferenceViewHolder) viewHolder;
 
-        holder.speechTitle.setText(_speeches.get(position).getTitle());
-        holder.speechTime.setText("\nВремя проведения: " + _speeches.get(position).getDate());
+        holder.speechTitle.setText(mSpeeches.get(position).getTitle());
+        holder.speechTime.setText("\nВремя проведения: " + mSpeeches.get(position).getDate());
     }
 
     @Override
     public int getItemCount() {
-        return _speeches.size();
+        return mSpeeches.size();
     }
 
     public void addItems(ArrayList<Speech> speeches) {
-        _speeches.addAll(speeches);
+        mSpeeches.addAll(speeches);
         notifyDataSetChanged();
     }
 
     public void removeItems() {
-        _speeches = new ArrayList<>();
+        mSpeeches = new ArrayList<>();
         notifyDataSetChanged();
     }
 }

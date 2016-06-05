@@ -11,9 +11,9 @@ public class LoginResponse extends BasicResponse {
 
     @SerializedName("token")
     @Expose
-    private String _authToken;
+    private String mAuthToken;
 
     public String getResponseToken() {
-        return _authToken;
+        return mAuthToken;
     }
 }

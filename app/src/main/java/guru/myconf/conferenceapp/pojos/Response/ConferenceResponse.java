@@ -9,41 +9,41 @@ import java.util.Date;
 public class ConferenceResponse {
     @SerializedName("conference_id")
     @Expose
-    private int _id;
+    private int mId;
 
     @SerializedName("title")
     @Expose
-    private String _title;
+    private String mTitle;
 
     @SerializedName("start_date")
     @Expose
-    private Date _startDate;
+    private Date mStartDate;
 
     @SerializedName("end_date")
     @Expose
-    private Date _endDate;
+    private Date mEndDate;
 
     @SerializedName("main_image")
     @Expose
-    private int _imageId;
+    private int mImageId;
 
-    private SimpleDateFormat _dateFormatter = new SimpleDateFormat("dd.MM");
+    private SimpleDateFormat mDateFormatter = new SimpleDateFormat("dd.MM");
 
 
 
     public int getId() {
-        return _id;
+        return mId;
     }
 
     public String getTitle() {
-        return _title;
+        return mTitle;
     }
 
     public String getDate() {
-        return _dateFormatter.format(_startDate) + " - " + _dateFormatter.format(_endDate);
+        return mDateFormatter.format(mStartDate) + " - " + mDateFormatter.format(mEndDate);
     }
 
     public int getImageId() {
-        return _imageId;
+        return mImageId;
     }
 }

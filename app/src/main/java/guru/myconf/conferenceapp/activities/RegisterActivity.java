@@ -31,15 +31,15 @@ import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    @Bind(R.id.link_login) TextView _loginLink;
-    @Bind(R.id.register_button) Button _registerButton;
+    @Bind(R.id.link_login) TextView mLoginLink;
+    @Bind(R.id.register_button) Button mRegisterButton;
 
-    @Bind(R.id.name) EditText _inputName;
-    @Bind(R.id.user_login) EditText _inputLogin;
-    @Bind(R.id.password) EditText _inputPassword;
-    @Bind(R.id.email) EditText _inputEmail;
+    @Bind(R.id.name) EditText mInputName;
+    @Bind(R.id.user_login) EditText mInputLogin;
+    @Bind(R.id.password) EditText mInputPassword;
+    @Bind(R.id.email) EditText mInputEmail;
 
-    private EventBus _bus = EventBus.getDefault();
+    private EventBus mBus = EventBus.getDefault();
 
     private static final int MIN_LENGH = 4;
     private static final int MAX_LENGH = 30;
@@ -51,16 +51,16 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         ButterKnife.bind(this);
-        _bus.register(this);
+        mBus.register(this);
 
-        _registerButton.setOnClickListener(new View.OnClickListener() {
+        mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptRegister();
             }
         });
 
-        _loginLink.setOnClickListener(new View.OnClickListener() {
+        mLoginLink.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -69,12 +69,12 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    public void attemptRegister()
+    private void attemptRegister()
     {
-        String userName = _inputName.getText().toString();
-        String userLogin = _inputLogin.getText().toString();
-        String userPassword = _inputPassword.getText().toString();
-        String userEmail = _inputEmail.getText().toString();
+        String userName = mInputName.getText().toString();
+        String userLogin = mInputLogin.getText().toString();
+        String userPassword = mInputPassword.getText().toString();
+        String userEmail = mInputEmail.getText().toString();
 
         if (!validateUserInfo(userName, userLogin, userPassword, userEmail)) {
             return;
@@ -106,16 +106,16 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                     Log.d("msg", basicResponse.body().getResponseMessage());
 
-                    _bus.post(new ApiResultEvent(new Object()));
+                    mBus.post(new ApiResultEvent(new Object()));
                 }
                 catch (Exception e){
-                    _bus.post(new ApiErrorEvent(e));
+                    mBus.post(new ApiErrorEvent(e));
                 }
             }
 
             @Override
             public void onFailure(Call<BasicResponse> call, Throwable t) {
-                _bus.post(new ApiErrorEvent(new ConnectException()));
+                mBus.post(new ApiErrorEvent(new ConnectException()));
             }
         });
     }
@@ -148,24 +148,24 @@ public class RegisterActivity extends AppCompatActivity {
         View focusView = null;
 
         if (!isEmailValid(userEmail)) {
-            _inputEmail.setError(getString(R.string.error_register_wrong_email));
-            focusView = _inputEmail;
+            mInputEmail.setError(getString(R.string.error_register_wrong_email));
+            focusView = mInputEmail;
         }
 
 
         if (!isPasswordValid(userPassword)) {
-            _inputPassword.setError(getString(R.string.error_register_wrong_length) + MIN_LENGH + getString(R.string.error_symbol));
-            focusView = _inputPassword;
+            mInputPassword.setError(getString(R.string.error_register_wrong_length) + MIN_LENGH + getString(R.string.error_symbol));
+            focusView = mInputPassword;
         }
 
         if (!isLoginValid(userLogin)) {
-            _inputLogin.setError(getString(R.string.error_register_wrong_length) + MIN_LENGH + getString(R.string.error_symbol));
-            focusView = _inputLogin;
+            mInputLogin.setError(getString(R.string.error_register_wrong_length) + MIN_LENGH + getString(R.string.error_symbol));
+            focusView = mInputLogin;
         }
 
         if (!isNameValid(userName)) {
-            _inputName.setError(getString(R.string.error_register_wrong_name));
-            focusView = _inputName;
+            mInputName.setError(getString(R.string.error_register_wrong_name));
+            focusView = mInputName;
         }
 
         if (focusView != null) {
@@ -195,20 +195,20 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        _bus.unregister(this);
+        mBus.unregister(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (!_bus.isRegistered(this))
-            _bus.register(this);
+        if (!mBus.isRegistered(this))
+            mBus.register(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (_bus.isRegistered(this))
-            _bus.unregister(this);
+        if (mBus.isRegistered(this))
+            mBus.unregister(this);
     }
 }

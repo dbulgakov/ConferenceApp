@@ -10,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -25,14 +24,11 @@ import guru.myconf.conferenceapp.fragments.ConferenceListFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ConferenceAdapter.OnConferenceSelected{
 
-    @Bind(R.id.toolbar) Toolbar _toolbar;
-    @Bind(R.id.nav_view) NavigationView _navigationView;
-    @Bind(R.id.drawer_layout) DrawerLayout _drawer;
+    @Bind(R.id.toolbar) Toolbar mToolbar;
+    @Bind(R.id.nav_view) NavigationView mNavigationView;
+    @Bind(R.id.drawer_layout) DrawerLayout mDrawer;
 
-
-    private TextView _userName;
-
-    static final int LOGIN_STATUS = 0;
+    private static final int LOGIN_STATUS = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +39,13 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         // Action bar init
-        setSupportActionBar(_toolbar);
+        setSupportActionBar(mToolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, _drawer, _toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        _drawer.addDrawerListener(toggle);
-        _navigationView.getMenu().getItem(0).setChecked(true);
+                this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawer.addDrawerListener(toggle);
+        mNavigationView.getMenu().getItem(0).setChecked(true);
         toggle.syncState();
-        _navigationView.setNavigationItemSelectedListener(this);
+        mNavigationView.setNavigationItemSelectedListener(this);
 
         if (checkAuth()){
             startMainFragment();
@@ -89,8 +85,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        if (_drawer.isDrawerOpen(GravityCompat.START)) {
-            _drawer.closeDrawer(GravityCompat.START);
+        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+            mDrawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
@@ -115,7 +111,7 @@ public class MainActivity extends AppCompatActivity
             SimpleDialogFragment.createBuilder(this, getSupportFragmentManager()).setTitle(getString(R.string.about_app_fragment_title)).setMessage(getString(R.string.about_app_fragment_body_text)).setPositiveButtonText(getString(R.string.about_app_fragment_button_text)).useDarkTheme().show();
         }
 
-        _drawer.closeDrawer(GravityCompat.START);
+        mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -148,7 +144,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void updateUserName(){
-        View header = _navigationView.getHeaderView(0);
+        View header = mNavigationView.getHeaderView(0);
         TextView userName = (TextView) header.findViewById(R.id.user_name);
         userName.setText(getUserName());
     }

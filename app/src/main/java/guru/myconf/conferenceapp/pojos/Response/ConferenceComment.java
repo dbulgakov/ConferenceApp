@@ -10,36 +10,35 @@ import guru.myconf.conferenceapp.entities.Comment;
 public class ConferenceComment {
     @SerializedName("comment_id")
     @Expose
-    private int _commentId;
+    private int mCommentId;
 
     @SerializedName("post_time")
     @Expose
-    private Date _postTime;
+    private Date mPostTime;
 
     @SerializedName("comment_text")
     @Expose
-    private String _text;
+    private String mText;
 
 
     @SerializedName("author")
     @Expose
-    private User _author;
+    private User mAuthor;
 
     public int getCommentId() {
-        return _commentId;
+        return mCommentId;
     }
 
     public Date getPostTime() {
-        return _postTime;
+        return mPostTime;
     }
 
     public String getText() {
-        return _text;
+        return mText;
     }
 
     public Comment convertToEntityComment() {
-        guru.myconf.conferenceapp.entities.User tmpUser = new guru.myconf.conferenceapp.entities.User(_author.convertToEntityUser());
-        guru.myconf.conferenceapp.entities.Comment tmpComment = new guru.myconf.conferenceapp.entities.Comment(_text, _postTime, tmpUser);
-        return tmpComment;
+        guru.myconf.conferenceapp.entities.User tmpUser = new guru.myconf.conferenceapp.entities.User(mAuthor.convertToEntityUser());
+        return new Comment(mText, mPostTime, tmpUser);
     }
 }

@@ -5,60 +5,59 @@ import com.google.gson.annotations.SerializedName;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class SpeechResponse {
     @SerializedName("speech_id")
     @Expose
-    private int _id;
+    private int mId;
 
     @SerializedName("title")
     @Expose
-    private String _title;
+    private String mTitle;
 
     @SerializedName("description")
     @Expose
-    private String _description;
+    private String mDescription;
 
     @SerializedName("address")
     @Expose
-    private String _address;
+    private String mAddress;
 
     @SerializedName("start_time")
     @Expose
-    private Date _startDate;
+    private Date mStartDate;
 
     @SerializedName("end_time")
     @Expose
-    private Date _endDate;
+    private Date mEndDate;
 
     @SerializedName("author")
     @Expose
-    private User _author;
+    private User mAuthor;
 
-    private SimpleDateFormat _dateFormatter = new SimpleDateFormat("HH:mm");
+    private SimpleDateFormat mDateFormatter = new SimpleDateFormat("HH:mm");
 
     public int getId() {
-        return _id;
+        return mId;
     }
 
     public String getTitle() {
-        return _title;
+        return mTitle;
     }
 
     public String getDescription() {
-        return _description;
+        return mDescription;
     }
 
     public String getAddress() {
-        return _address;
+        return mAddress;
     }
 
     public String getDate() {
-        return _dateFormatter.format(_startDate) + " - " + _dateFormatter.format(_endDate);
+        return mDateFormatter.format(mStartDate) + " - " + mDateFormatter.format(mEndDate);
     }
 
     public User getAuthor() {
-        return _author;
+        return mAuthor;
     }
 }

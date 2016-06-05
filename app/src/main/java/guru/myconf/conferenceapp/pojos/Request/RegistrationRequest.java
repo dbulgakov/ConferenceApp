@@ -4,26 +4,26 @@ import com.google.gson.annotations.SerializedName;
 
 public class RegistrationRequest {
     @SerializedName("username")
-    private String _username;
+    private String mUsername;
 
     @SerializedName("password")
-    private String _password;
+    private String mPassword;
 
     @SerializedName("firstname")
-    private String _firstname;
+    private String mFirstname;
 
     @SerializedName("lastname")
-    private String _lastname;
+    private String mLastname;
 
     @SerializedName("email")
-    private String _email;
+    private String mEmail;
 
     public RegistrationRequest(String userLogin, String userPassword,
                                 String userFirstName, String userLastName, String userEmail) {
-        _username = userLogin;
-        _password = userPassword;
-        _firstname = userFirstName;
-        _lastname = userLastName;
-        _email = userEmail;
+        mUsername = userLogin;
+        mPassword = userPassword;
+        mFirstname = userFirstName;
+        mLastname = userLastName;
+        mEmail = userEmail;
     }
 }

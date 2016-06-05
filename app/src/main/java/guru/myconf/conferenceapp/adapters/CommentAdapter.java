@@ -14,8 +14,8 @@ import guru.myconf.conferenceapp.entities.Comment;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
-    private ArrayList<Comment> _comments;
-    private Context _context;
+    private ArrayList<Comment> mComments;
+    private Context mContext;
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -36,8 +36,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     }
 
     public CommentAdapter(Context context, ArrayList<Comment> speeches) {
-        _comments = speeches;
-        _context = context;
+        mComments = speeches;
+        mContext = context;
     }
 
     @Override
@@ -51,23 +51,23 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         ConferenceViewHolder holder = (ConferenceViewHolder) viewHolder;
 
-        holder.commentText.setText(_comments.get(position).getText());
-        holder.commentAuthor.setText(" — " + _comments.get(position).getAuthor().getFullName());
-        holder.commentTime.setText(_comments.get(position).getDateString());
+        holder.commentText.setText(mComments.get(position).getText());
+        holder.commentAuthor.setText(" — " + mComments.get(position).getAuthor().getFullName());
+        holder.commentTime.setText(mComments.get(position).getDateString());
     }
 
     @Override
     public int getItemCount() {
-        return _comments.size();
+        return mComments.size();
     }
 
     public void addItems(ArrayList<Comment> comments) {
-        _comments.addAll(comments);
+        mComments.addAll(comments);
         notifyDataSetChanged();
     }
 
     public void removeItems() {
-        _comments = new ArrayList<>();
+        mComments = new ArrayList<>();
         notifyDataSetChanged();
     }
 }

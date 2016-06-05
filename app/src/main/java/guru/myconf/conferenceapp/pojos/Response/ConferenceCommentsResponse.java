@@ -12,9 +12,9 @@ public class ConferenceCommentsResponse extends BasicResponse{
 
     @SerializedName("comments")
     @Expose
-    private ArrayList<ConferenceComment> _comments;
+    private ArrayList<ConferenceComment> mComments;
 
     public ArrayList<ConferenceComment> getResponseComments() {
-        return _comments;
+        return mComments;
     }
 }

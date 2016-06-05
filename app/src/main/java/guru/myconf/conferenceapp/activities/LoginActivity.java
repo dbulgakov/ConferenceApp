@@ -34,12 +34,12 @@ import guru.myconf.conferenceapp.utils.ProgressBarUtility;
 
 public class LoginActivity extends AppCompatActivity {
 
-    @Bind(R.id.user_login) EditText _inputUserLogin;
-    @Bind(R.id.password) EditText _inputPassword;
-    @Bind(R.id.login_button) Button _loginButton;
-    @Bind(R.id.link_register) TextView _registerLink;
+    @Bind(R.id.user_login) EditText mInputUserLogin;
+    @Bind(R.id.password) EditText mInputPassword;
+    @Bind(R.id.login_button) Button mLoginButton;
+    @Bind(R.id.link_register) TextView mRegisterLink;
 
-    private EventBus _bus = EventBus.getDefault();
+    private EventBus mBus = EventBus.getDefault();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +48,14 @@ public class LoginActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        _loginButton.setOnClickListener(new OnClickListener() {
+        mLoginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
         });
 
-        _registerLink.setOnClickListener(new View.OnClickListener() {
+        mRegisterLink.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        _bus.register(this);
+        mBus.register(this);
     }
 
     @Override
@@ -81,8 +81,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void attemptLogin() {
-        String userLogin = _inputUserLogin.getText().toString();
-        String userPassword = _inputPassword.getText().toString();
+        String userLogin = mInputUserLogin.getText().toString();
+        String userPassword = mInputPassword.getText().toString();
 
         if (!validateCredentials(userLogin, userPassword)) {
             return;
@@ -98,13 +98,13 @@ public class LoginActivity extends AppCompatActivity {
         View focusView = null;
 
         if (!isPasswordValid(userPassword)) {
-            _inputPassword.setError(getString(R.string.error_invalid_password));
-            focusView = _inputPassword;
+            mInputPassword.setError(getString(R.string.error_invalid_password));
+            focusView = mInputPassword;
         }
 
         if (!isEmailValid(userLogin)) {
-            _inputUserLogin.setError(getString(R.string.error_invalid_email));
-            focusView = _inputUserLogin;
+            mInputUserLogin.setError(getString(R.string.error_invalid_email));
+            focusView = mInputUserLogin;
         }
 
         if (focusView != null) {
@@ -130,20 +130,20 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     String token = response.body().getResponseToken();
                     String[] tmp = {token, userLogin};
-                    _bus.post(new ApiResultEvent(tmp));
+                    mBus.post(new ApiResultEvent(tmp));
 
                     if (response.code() == 500){
                         throw new Exception();
                     }
                 }
                 catch (Exception e){
-                    _bus.post(new ApiErrorEvent(e));
+                    mBus.post(new ApiErrorEvent(e));
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                _bus.post(new ApiErrorEvent(new ConnectException()));
+                mBus.post(new ApiErrorEvent(new ConnectException()));
             }
         });
     }
@@ -184,21 +184,21 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        _bus.unregister(this);
+        mBus.unregister(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (!_bus.isRegistered(this))
-            _bus.register(this);
+        if (!mBus.isRegistered(this))
+            mBus.register(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (_bus.isRegistered(this))
-            _bus.unregister(this);
+        if (mBus.isRegistered(this))
+            mBus.unregister(this);
     }
 }
 

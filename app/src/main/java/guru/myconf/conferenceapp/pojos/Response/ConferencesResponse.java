@@ -12,9 +12,9 @@ public class ConferencesResponse extends BasicResponse{
 
     @SerializedName("conferences")
     @Expose
-    private ArrayList<ConferenceResponse> _conferences;
+    private ArrayList<ConferenceResponse> mConferences;
 
     public ArrayList<ConferenceResponse> getResponseConferences() {
-        return _conferences;
+        return mConferences;
     }
 }

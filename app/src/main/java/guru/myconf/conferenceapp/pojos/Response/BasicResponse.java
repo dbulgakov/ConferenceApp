@@ -6,17 +6,17 @@ import com.google.gson.annotations.SerializedName;
 public class BasicResponse {
     @SerializedName("success")
     @Expose
-    private boolean _successStatus;
+    private boolean mSuccessStatus;
 
     @SerializedName("message")
     @Expose
-    private String _message;
+    private String mMessage;
 
     public boolean getSuccessStatus() {
-        return _successStatus;
+        return mSuccessStatus;
     }
 
     public String getResponseMessage() {
-        return _message;
+        return mMessage;
     }
 }

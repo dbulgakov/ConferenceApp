@@ -1,13 +1,13 @@
 package guru.myconf.conferenceapp.events;
 
 public class ApiResultEvent {
-    private Object _object;
+    private Object mObject;
 
-    public ApiResultEvent(Object _object) {
-        this._object = _object;
+    public ApiResultEvent(Object object) {
+        this.mObject = object;
     }
 
     public Object getResponse() {
-        return _object;
+        return mObject;
     }
 }
