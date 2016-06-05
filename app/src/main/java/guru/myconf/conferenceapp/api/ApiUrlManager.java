@@ -3,6 +3,7 @@ package guru.myconf.conferenceapp.api;
 import guru.myconf.conferenceapp.entities.Conference;
 import guru.myconf.conferenceapp.pojos.Request.LoginRequest;
 import guru.myconf.conferenceapp.pojos.Request.RegistrationRequest;
+import guru.myconf.conferenceapp.pojos.Response.ConferenceCommentsResponse;
 import guru.myconf.conferenceapp.pojos.Response.ConferenceInfoResponse;
 import guru.myconf.conferenceapp.pojos.Response.ConferencesResponse;
 import guru.myconf.conferenceapp.pojos.Response.LoginResponse;
@@ -27,5 +28,5 @@ public interface ApiUrlManager {
     Call<ConferenceInfoResponse> getConferenceInfo(@Path("id") int conferenceId);
 
     @GET("conferences/{id}/comments")
-    Call<ConferenceInfoResponse> getConferenceComments(@Path("id") int conferenceId);
+    Call<ConferenceCommentsResponse> getConferenceComments(@Path("id") int conferenceId);
 }
