@@ -28,5 +28,4 @@ public class Speech {
     public String getDate() {
         return _date;
     }
-
 }

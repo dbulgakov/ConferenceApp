@@ -170,7 +170,20 @@
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:text="Комментарии:"
                     android:textColor="@android:color/primary_text_light" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-20dp"
+                android:padding="@dimen/activity_horizontal_margin">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_comments"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="@dimen/activity_margin_side"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
