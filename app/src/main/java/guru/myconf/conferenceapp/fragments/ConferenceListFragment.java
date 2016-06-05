@@ -141,7 +141,8 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
     @Subscribe
     public void onEvent(ApiResultEvent event) {
         if (event.getResponse() instanceof  ArrayList) {
-            mConferenceAdapter.addItems((ArrayList<Conference>)event.getResponse());
+            if (((ArrayList) event.getResponse()).toArray()[0] instanceof Conference)
+                mConferenceAdapter.addItems((ArrayList<Conference>)event.getResponse());
         }
     }
 
