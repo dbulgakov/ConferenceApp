@@ -37,7 +37,7 @@ public class User {
     }
 
     public guru.myconf.conferenceapp.entities.User convertToEntityUser() {
-        guru.myconf.conferenceapp.entities.User tmpUser = new guru.myconf.conferenceapp.entities.User(_first_name, _first_name, _id);
+        guru.myconf.conferenceapp.entities.User tmpUser = new guru.myconf.conferenceapp.entities.User(_first_name, _last_name, _id);
         return tmpUser;
     }
 }

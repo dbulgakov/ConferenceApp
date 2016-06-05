@@ -16,7 +16,7 @@ public class ConferenceComment {
     @Expose
     private Date _postTime;
 
-    @SerializedName("comment_tex")
+    @SerializedName("comment_text")
     @Expose
     private String _text;
 

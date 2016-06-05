@@ -27,14 +27,19 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import guru.myconf.conferenceapp.R;
+import guru.myconf.conferenceapp.adapters.CommentAdapter;
 import guru.myconf.conferenceapp.adapters.SpeechAdapter;
 import guru.myconf.conferenceapp.api.ApiUrlManager;
 import guru.myconf.conferenceapp.api.GeneralApiManager;
+import guru.myconf.conferenceapp.entities.Comment;
 import guru.myconf.conferenceapp.entities.Speech;
 import guru.myconf.conferenceapp.events.ApiErrorEvent;
 import guru.myconf.conferenceapp.events.ApiResultEvent;
+import guru.myconf.conferenceapp.pojos.Response.ConferenceComment;
+import guru.myconf.conferenceapp.pojos.Response.ConferenceCommentsResponse;
 import guru.myconf.conferenceapp.pojos.Response.ConferenceInfo;
 import guru.myconf.conferenceapp.pojos.Response.ConferenceInfoResponse;
+import guru.myconf.conferenceapp.pojos.Response.ConferencesResponse;
 import guru.myconf.conferenceapp.pojos.Response.SpeechResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,10 +49,12 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
 
     private int _conferenceId;
     private SpeechAdapter _speechAdapter;
+    private CommentAdapter _commentAdapter;
     private EventBus _bus = EventBus.getDefault();
 
     @Bind(R.id.speech_toolbar) Toolbar _toolbar;
-    @Bind(R.id.recycler_view_speeches) RecyclerView _recycleView;
+    @Bind(R.id.recycler_view_speeches) RecyclerView _recycleViewSpeeches;
+    @Bind(R.id.recycler_view_comments) RecyclerView _recycleViewCommets;
     @Bind(R.id.confenrece_name) TextView _conferenceTitle;
     @Bind(R.id.confenrece_description) TextView _conferenceDescription;
     @Bind(R.id.confenrece_address) TextView _conferenceAddress;
@@ -86,15 +93,20 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         // Turning progressbar on
         _progressBar.setIndeterminate(true);
 
-        // Initializing Adapter
+        // Initializing Adapters
         _speechAdapter = new SpeechAdapter(this, new ArrayList<Speech>());
+        _commentAdapter = new CommentAdapter(this, new ArrayList<Comment>());
 
-        // Initializing RC
-        _recycleView.setLayoutManager(new LinearLayoutManager(this));
-        _recycleView.setItemAnimator(new DefaultItemAnimator());
-        _recycleView.setAdapter(_speechAdapter);
+        // Initializing RCs
+        _recycleViewSpeeches.setLayoutManager(new LinearLayoutManager(this));
+        _recycleViewSpeeches.setItemAnimator(new DefaultItemAnimator());
+        _recycleViewSpeeches.setAdapter(_speechAdapter);
 
-        getConferenceInfo(_conferenceId);
+        _recycleViewCommets.setLayoutManager(new LinearLayoutManager(this));
+        _recycleViewCommets.setItemAnimator(new DefaultItemAnimator());
+        _recycleViewCommets.setAdapter(_commentAdapter);
+
+        UpdateData();
     }
 
     private void getConferenceInfo(int conferenceId) {
@@ -137,7 +149,6 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
 
             @Override
             public void onFailure(Call<ConferenceInfoResponse> call, Throwable t) {
-                Log.d("response1", t.getMessage());
                 _bus.post(new ApiErrorEvent(new ConnectException()));
             }
         });
@@ -148,20 +159,75 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         return settings.getInt("conferenceId", -1);
     }
 
+    private void getConferenceComments(int conferenceId) {
+        // Initializing apiManager to perform requests
+        GeneralApiManager apiManager = new GeneralApiManager(this);
+        ApiUrlManager apiService = apiManager.getApiService();
+
+        // Removing old data
+        _commentAdapter.removeItems();
+
+        Call<ConferenceCommentsResponse> call = apiService.getConferenceComments(_conferenceId);
+
+        call.enqueue(new Callback<ConferenceCommentsResponse>() {
+
+            @Override
+            public void onResponse(Call<ConferenceCommentsResponse> call, Response<ConferenceCommentsResponse> response) {
+                try {
+                    ArrayList<Comment> comments = new ArrayList<>();
+
+                    // Converting into more convenient classes
+                    for (ConferenceComment c : response.body().getResponseComments()) {
+                        comments.add(c.convertToEntityComment());
+                    }
+
+                    _bus.post(new ApiResultEvent(comments));
+
+                    if (response.code() == 500){
+                        throw new Exception();
+                    }
+                }
+                catch (Exception e){
+                    _bus.post(new ApiErrorEvent(e));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ConferenceCommentsResponse> call, Throwable t) {
+                _bus.post(new ApiErrorEvent(new ConnectException()));
+            }
+        });
+    }
+
+
+    public void UpdateData()
+    {
+        getConferenceInfo(_conferenceId);
+        getConferenceComments(_conferenceId);
+    }
+
+
+
+
     @Override
     public void onRefresh() {
-        getConferenceInfo(_conferenceId);
+        UpdateData();
     }
 
     @Subscribe
     public void onEvent(ApiResultEvent event) {
         if (event.getResponse() instanceof  ArrayList) {
-            _speechAdapter.addItems((ArrayList<Speech>)event.getResponse());
+            if (((ArrayList) event.getResponse()).get(0) instanceof Speech)
+                _speechAdapter.addItems((ArrayList<Speech>)event.getResponse());
+            else {
+                _commentAdapter.addItems((ArrayList<Comment>)event.getResponse());
+            }
         }
     }
 
     @Subscribe
     public void onEvent(ApiErrorEvent event) {
+        Log.d("error", event.getError().getMessage());
         Toast.makeText(this, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
         _bus.unregister(this);
         finish();
