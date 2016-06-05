@@ -22,4 +22,8 @@ public class User {
     public int getId(){
         return _id;
     }
+
+    public String getFullName() {
+        return _firstName + " " + _lastName;
+    }
 }
