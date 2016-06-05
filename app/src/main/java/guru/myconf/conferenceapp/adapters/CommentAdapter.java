@@ -25,12 +25,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     }
 
     public class ConferenceViewHolder extends ViewHolder {
-        TextView commentText, commentAuthor;
+        TextView commentText, commentAuthor, commentTime;
 
         public ConferenceViewHolder(View v) {
             super(v);
             commentText = (TextView) v.findViewById(R.id.comment_text);
             commentAuthor = (TextView) v.findViewById(R.id.comment_author);
+            commentTime = (TextView) v.findViewById(R.id.comment_time);
         }
     }
 
@@ -52,6 +53,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         holder.commentText.setText(_comments.get(position).getText());
         holder.commentAuthor.setText(_comments.get(position).getAuthor().getFullName());
+        holder.commentTime.setText(_comments.get(position).getDateString());
     }
 
     @Override
