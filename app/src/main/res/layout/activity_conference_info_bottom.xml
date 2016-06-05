@@ -204,6 +204,7 @@
                     <EditText android:id="@+id/add_comment_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorPrimary"
                         android:textColor= "@color/colorPrimaryDarker"
                         android:inputType="textCapSentences"
                         android:hint="Оставьте ваш комментарий тут" />

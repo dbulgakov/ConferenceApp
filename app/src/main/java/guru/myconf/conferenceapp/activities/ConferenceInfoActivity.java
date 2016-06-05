@@ -129,7 +129,6 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         mRecycleViewCommets.setItemAnimator(new DefaultItemAnimator());
         mRecycleViewCommets.setAdapter(mCommentAdapter);
 
-        UpdateLayout();
         UpdateData();
     }
 
@@ -309,8 +308,11 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
 
     @Subscribe
     public void onEvent(ApiPostCommentError event) {
-        Log.d("error", event.getError().getMessage());
         if (event.getError() instanceof AccountsException) {
+            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.clear().apply();
+            Toast.makeText(this, R.string.error_wrong_credentials, Toast.LENGTH_SHORT).show();
 
         } else {
             Toast.makeText(this, R.string.error_no_internet, Toast.LENGTH_SHORT).show();
@@ -349,16 +351,6 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
                 .into(mConferenceImage, callback);
     }
 
-    private void UpdateLayout() {
-        Drawable drawable = mAddCommentText.getBackground(); // get current EditText drawable
-        drawable.setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
-
-        if(Build.VERSION.SDK_INT > 16) {
-            mAddCommentText.setBackground(drawable);
-        }else{
-            mAddCommentText.setBackgroundDrawable(drawable);
-        }
-    }
 
     private boolean checkComment(String text) {
         return !text.isEmpty();
