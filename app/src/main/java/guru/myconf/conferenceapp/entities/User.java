@@ -5,6 +5,13 @@ public class User {
     private String _lastName;
     private int _id;
 
+    public User(User user) {
+        _firstName = user.getFirstName();
+        _lastName = user.getLastName();
+        user._id = user.getId();
+    }
+
+
     public User(String firstName, String lastName, int id){
         _firstName = firstName;
         _lastName = lastName;

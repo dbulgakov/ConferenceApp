@@ -34,7 +34,7 @@ public class SpeechResponse {
 
     @SerializedName("author")
     @Expose
-    private SpeechAuthor _author;
+    private User _author;
 
     private SimpleDateFormat _dateFormatter = new SimpleDateFormat("HH:mm");
 
@@ -58,27 +58,7 @@ public class SpeechResponse {
         return _dateFormatter.format(_startDate) + " - " + _dateFormatter.format(_endDate);
     }
 
-    public SpeechAuthor getAuthor() {
+    public User getAuthor() {
         return _author;
     }
-}
-
-class SpeechAuthor{
-
-    @SerializedName("id")
-    @Expose
-    private int _id;
-
-    @SerializedName("first_name")
-    @Expose
-    private String _first_name;
-
-    @SerializedName("last_name")
-    @Expose
-    private String _last_name;
-
-    @SerializedName("photo_id")
-    @Expose
-    private int _photo_id;
-
 }

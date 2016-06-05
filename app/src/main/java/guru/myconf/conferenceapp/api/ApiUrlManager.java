@@ -24,5 +24,8 @@ public interface ApiUrlManager {
     Call<ConferencesResponse> getConferences();
 
     @GET("conferences/{id}/")
-    Call<ConferenceInfoResponse> getConferenceInfo(@Path("id") int groupId);
+    Call<ConferenceInfoResponse> getConferenceInfo(@Path("id") int conferenceId);
+
+    @GET("conferences/{id}/comments")
+    Call<ConferenceInfoResponse> getConferenceComments(@Path("id") int conferenceId);
 }
