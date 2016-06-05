@@ -196,11 +196,15 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColorHint="@color/colorPrimary"
+                    android:textColorHighlight="@color/colorPrimaryDarker"
+                    android:textColor= "@color/colorPrimaryDarker"
                     android:layout_marginTop="@dimen/login_activity_text_input_layout_margin"
                     android:layout_marginBottom="@dimen/login_activity_text_input_layout_margin">
-                    <EditText android:id="@+id/email"
+                    <EditText android:id="@+id/add_comment_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor= "@color/colorPrimaryDarker"
                         android:inputType="textCapSentences"
                         android:hint="Оставьте ваш комментарий тут" />
                 </android.support.design.widget.TextInputLayout>

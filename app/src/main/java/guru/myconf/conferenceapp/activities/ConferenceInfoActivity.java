@@ -1,6 +1,9 @@
 package guru.myconf.conferenceapp.activities;
 
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -106,6 +110,7 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         _recycleViewCommets.setItemAnimator(new DefaultItemAnimator());
         _recycleViewCommets.setAdapter(_commentAdapter);
 
+        UpdateLayout();
         UpdateData();
     }
 
@@ -263,6 +268,17 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
                 .into(_conferenceImage, callback);
     }
 
+    private void UpdateLayout() {
+        EditText comments = (EditText) findViewById(R.id.add_comment_text);
+        Drawable drawable = comments.getBackground(); // get current EditText drawable
+        drawable.setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+
+        if(Build.VERSION.SDK_INT > 16) {
+            comments.setBackground(drawable);
+        }else{
+            comments.setBackgroundDrawable(drawable);
+        }
+    }
 
     @Override
     protected void onDestroy() {
