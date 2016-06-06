@@ -283,7 +283,7 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
 
     @Subscribe
     public void onEvent(ApiResultEvent event) {
-        if (event.getResponse() instanceof  ArrayList) {
+        if (event.getResponse() instanceof  ArrayList && ((ArrayList) event.getResponse()).size() > 0) {
             if (((ArrayList) event.getResponse()).toArray()[0] instanceof Speech)
                 mSpeechAdapter.addItems((ArrayList<Speech>)event.getResponse());
             else {
