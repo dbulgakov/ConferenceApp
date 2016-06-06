@@ -134,11 +134,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
-        if (checkAuth())
-        {
-            ButterKnife.bind(this);
-            updateUserName();
-        }
+        ButterKnife.bind(this);
+        updateUserName();
     }
 
     private String getUserName() {
