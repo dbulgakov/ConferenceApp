@@ -146,7 +146,7 @@
                     android:id="@+id/recycler_view_speeches"
                     android:layout_width="match_parent"
                     android:layout_marginLeft="@dimen/activity_margin_side"
-                    android:layout_height="200dp"
+                    android:layout_height="150dp"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
             </LinearLayout>
 
@@ -182,14 +182,15 @@
                     android:id="@+id/recycler_view_comments"
                     android:layout_width="match_parent"
                     android:layout_marginLeft="@dimen/activity_margin_side"
-                    android:layout_height="match_parent"
+                    android:layout_height="150dp"
+                    android:visibility="gone"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-20dp"
+                android:layout_marginTop="-40dp"
                 android:padding="@dimen/activity_horizontal_margin"
                 android:orientation="vertical">
 

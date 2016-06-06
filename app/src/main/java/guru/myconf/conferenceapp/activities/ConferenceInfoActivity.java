@@ -287,6 +287,11 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
             if (((ArrayList) event.getResponse()).toArray()[0] instanceof Speech)
                 mSpeechAdapter.addItems((ArrayList<Speech>)event.getResponse());
             else {
+                if (((ArrayList) event.getResponse()).size() > 0) {
+                    mRecycleViewCommets.setVisibility(View.VISIBLE);
+                } else {
+                    mRecycleViewCommets.setVisibility(View.GONE);
+                }
                 mCommentAdapter.addItems((ArrayList<Comment>)event.getResponse());
             }
         }
