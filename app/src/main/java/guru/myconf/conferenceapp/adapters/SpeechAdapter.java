@@ -50,7 +50,7 @@ public class SpeechAdapter extends RecyclerView.Adapter<SpeechAdapter.ViewHolder
         ConferenceViewHolder holder = (ConferenceViewHolder) viewHolder;
 
         holder.speechTitle.setText(mSpeeches.get(position).getTitle());
-        holder.speechTime.setText("\nВремя проведения: " + mSpeeches.get(position).getDate());
+        holder.speechTime.setText(mContext.getString(R.string.speech_date_start_string) + mSpeeches.get(position).getDate());
     }
 
     @Override

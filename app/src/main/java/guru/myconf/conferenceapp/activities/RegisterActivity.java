@@ -41,8 +41,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EventBus mBus = EventBus.getDefault();
 
-    private static final int MIN_LENGH = 4;
-    private static final int MAX_LENGH = 30;
+    private static final int MIN_LENGTH = 4;
+    private static final int MAX_LENGTH = 30;
 
 
     @Override
@@ -154,12 +154,12 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         if (!isPasswordValid(userPassword)) {
-            mInputPassword.setError(getString(R.string.error_register_wrong_length) + MIN_LENGH + getString(R.string.error_symbol));
+            mInputPassword.setError(getString(R.string.error_register_wrong_length) + MIN_LENGTH + getString(R.string.error_symbol));
             focusView = mInputPassword;
         }
 
         if (!isLoginValid(userLogin)) {
-            mInputLogin.setError(getString(R.string.error_register_wrong_length) + MIN_LENGH + getString(R.string.error_symbol));
+            mInputLogin.setError(getString(R.string.error_register_wrong_length) + MIN_LENGTH + getString(R.string.error_symbol));
             focusView = mInputLogin;
         }
 
@@ -177,7 +177,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean isLoginValid(String userLogin) {
-        return !userLogin.isEmpty() && userLogin.length() >= MIN_LENGH && userLogin.length() < MAX_LENGH;
+        return !userLogin.isEmpty() && userLogin.length() >= MIN_LENGTH && userLogin.length() < MAX_LENGTH;
     }
 
     private boolean isEmailValid(String userEmail) {
@@ -185,7 +185,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean isPasswordValid(String userPassword) {
-        return !userPassword.isEmpty() && userPassword.length() >= MIN_LENGH && userPassword.length() < MAX_LENGH;
+        return !userPassword.isEmpty() && userPassword.length() >= MIN_LENGTH && userPassword.length() < MAX_LENGTH;
     }
 
     private boolean isNameValid(String userName) {

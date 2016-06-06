@@ -24,9 +24,9 @@
     <dimen name="text_size_normal">16sp</dimen>
     <dimen name="text_size_small">14sp</dimen>
 
-    <dimen name="conferencerow_separatior_margin">5dp</dimen>
-    <dimen name="conferencerow_separatior_margin_bottom">2dp</dimen>
-    <dimen name="conferencerow_separatior_height">1dp</dimen>
-    <dimen name="conferencerow_image_margin_side">8dp</dimen>
-    <dimen name="conferencerow_image_margin_top">8dp</dimen>
+    <dimen name="conference_row_separator_margin">5dp</dimen>
+    <dimen name="conference_row_separator_margin_bottom">2dp</dimen>
+    <dimen name="conference_row_separator_height">1dp</dimen>
+    <dimen name="conference_row_image_margin_side">8dp</dimen>
+    <dimen name="conference_row_image_margin_top">8dp</dimen>
 </resources>

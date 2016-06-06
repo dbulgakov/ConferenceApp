@@ -2,9 +2,6 @@ package guru.myconf.conferenceapp.activities;
 
 import android.accounts.AccountsException;
 import android.content.SharedPreferences;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -62,10 +59,10 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
 
     @Bind(R.id.speech_toolbar) Toolbar mToolbar;
     @Bind(R.id.recycler_view_speeches) RecyclerView mRecycleViewSpeeches;
-    @Bind(R.id.recycler_view_comments) RecyclerView mRecycleViewCommets;
-    @Bind(R.id.confenrece_name) TextView mConferenceTitle;
-    @Bind(R.id.confenrece_description) TextView mConferenceDescription;
-    @Bind(R.id.confenrece_address) TextView mConferenceAddress;
+    @Bind(R.id.recycler_view_comments) RecyclerView mRecycleViewComments;
+    @Bind(R.id.conference_name) TextView mConferenceTitle;
+    @Bind(R.id.conference_description) TextView mConferenceDescription;
+    @Bind(R.id.conference_address) TextView mConferenceAddress;
     @Bind(R.id.conference_date) TextView mConferenceDate;
     @Bind(R.id.conference_image) ImageView mConferenceImage;
     @Bind(R.id.progressBar) ProgressBar mProgressBar;
@@ -125,9 +122,9 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
         mRecycleViewSpeeches.setItemAnimator(new DefaultItemAnimator());
         mRecycleViewSpeeches.setAdapter(mSpeechAdapter);
 
-        mRecycleViewCommets.setLayoutManager(new LinearLayoutManager(this));
-        mRecycleViewCommets.setItemAnimator(new DefaultItemAnimator());
-        mRecycleViewCommets.setAdapter(mCommentAdapter);
+        mRecycleViewComments.setLayoutManager(new LinearLayoutManager(this));
+        mRecycleViewComments.setItemAnimator(new DefaultItemAnimator());
+        mRecycleViewComments.setAdapter(mCommentAdapter);
 
         UpdateData();
     }
@@ -288,9 +285,9 @@ public class ConferenceInfoActivity extends AppCompatActivity implements SwipeRe
                 mSpeechAdapter.addItems((ArrayList<Speech>)event.getResponse());
             else {
                 if (((ArrayList) event.getResponse()).size() > 0) {
-                    mRecycleViewCommets.setVisibility(View.VISIBLE);
+                    mRecycleViewComments.setVisibility(View.VISIBLE);
                 } else {
-                    mRecycleViewCommets.setVisibility(View.GONE);
+                    mRecycleViewComments.setVisibility(View.GONE);
                 }
                 mCommentAdapter.addItems((ArrayList<Comment>)event.getResponse());
             }

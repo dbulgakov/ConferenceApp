@@ -76,7 +76,7 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
         });
         mSwipeRefreshLayout.setRefreshing(true);
         holder.conferenceName.setText(mConferences.get(position).getTitle());
-        holder.conferenceDate.setText(new StringBuilder().append(mContext.getString(R.string.conferencerow_date_string)).append(mConferences.get(position).getDate()).toString());
+        holder.conferenceDate.setText(mContext.getString(R.string.conference_row_date_string) + mConferences.get(position).getDate());
         mPicasso.load(mConferences.get(position).getImageLink())
                 .fit()
                 .into(holder.conferenceImage, new Callback() {

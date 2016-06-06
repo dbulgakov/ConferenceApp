@@ -27,15 +27,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingLeft="56dp"
-                android:paddingStart="56dp">
+                android:paddingStart="56dp"
+                tools:ignore="RtlSymmetry">
 
                 <TextView
                     style="@style/TextAppearance.AppCompat.Headline"
-                    android:id="@+id/confenrece_name"
+                    android:id="@+id/conference_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorBlack"
-                    android:text="@string/conferencerow_name_string" />
+                    android:text="@string/conference_name_default_string" />
 
                 <View
                     android:layout_width="match_parent"
@@ -45,12 +46,12 @@
                     android:background="@android:color/black" />
 
                 <TextView
-                    android:id="@+id/confenrece_description"
+                    android:id="@+id/conference_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
-                    android:text="Описание конференции"
+                    android:text="@string/conference_description_default_string"
                     android:textColor="?attr/colorPrimary" />
 
                 <View
@@ -77,12 +78,12 @@
                     android:src="@drawable/place_logo" />
 
                 <TextView
-                    android:id="@+id/confenrece_address"
+                    android:id="@+id/conference_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:text="Адрес конференции"
+                    android:text="@string/conference_address_default_string"
 
                     android:textColor="@android:color/primary_text_light" />
 
@@ -107,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:text="Даты проведения конференции"
+                    android:text="@string/conference_date_default_string"
                     android:textColor="@android:color/primary_text_light" />
 
             </LinearLayout>
@@ -131,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:text="Запланированные выступления:"
+                    android:text="@string/conference_speeches_default_string"
                     android:textColor="@android:color/primary_text_light" />
 
             </LinearLayout>
@@ -168,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:text="Комментарии:"
+                    android:text="@string/conference_comments_string"
                     android:textColor="@android:color/primary_text_light" />
             </LinearLayout>
 
@@ -208,14 +209,14 @@
                         android:backgroundTint="@color/colorPrimary"
                         android:textColor= "@color/colorPrimaryDarker"
                         android:inputType="textCapSentences"
-                        android:hint="Оставьте ваш комментарий тут" />
+                        android:hint="@string/conference_comment_hint_default_string" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/add_comment_button"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Добавить комментарий"/>
+                    android:text="@string/conference_add_comment_string"/>
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

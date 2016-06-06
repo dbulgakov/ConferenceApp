@@ -19,9 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/conference_row_image_size"
             android:background="@drawable/no_image"
-            android:layout_marginLeft="@dimen/conferencerow_image_margin_side"
-            android:layout_marginRight="@dimen/conferencerow_image_margin_side"
-            android:layout_marginTop="@dimen/conferencerow_image_margin_top"
+            android:layout_marginLeft="@dimen/conference_row_image_margin_side"
+            android:layout_marginRight="@dimen/conference_row_image_margin_side"
+            android:layout_marginTop="@dimen/conference_row_image_margin_top"
             tools:ignore="ContentDescription"
             android:gravity="top" />
 
@@ -36,23 +36,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-thin"
-                android:text="@string/conferencerow_name_string"
+                android:text="@string/conference_name_default_string"
                 android:textSize="@dimen/text_size_large" />
 
             <View
-                android:layout_marginTop="@dimen/conferencerow_separatior_margin"
-                android:layout_marginBottom="@dimen/conferencerow_separatior_margin_bottom"
+                android:layout_marginTop="@dimen/conference_row_separator_margin"
+                android:layout_marginBottom="@dimen/conference_row_separator_margin_bottom"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/conferencerow_separatior_height"
+                android:layout_height="@dimen/conference_row_separator_height"
                 android:background="@android:color/darker_gray"/>
 
             <TextView
                 android:id="@+id/conference_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/conferencerow_separatior_margin"
+                android:layout_marginTop="@dimen/conference_row_separator_margin"
                 android:fontFamily="sans-serif-condensed"
-                android:text="@string/conferencerow_date_string"
+                android:text="@string/conference_row_date_string"
                 android:textSize="@dimen/text_size_small" />
         </LinearLayout>
     </LinearLayout>

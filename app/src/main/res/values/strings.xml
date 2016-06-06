@@ -18,7 +18,7 @@
     <string name="login_process_message">Авторизация…</string>
 
     <string name="register_name_hint">Имя, Фамилия</string>
-    <string name="register_userlogin_hint">Логин</string>
+    <string name="register_user_login_hint">Логин</string>
     <string name="register_password_hint">Пароль</string>
     <string name="register_email_hint">Email</string>
     <string name="register_button_text">Зарегистрироваться</string>
@@ -27,7 +27,7 @@
 
 
     <string name="invite_to_register_message">Зарегистрировать новый аккаунт</string>
-    <string name="conferenceguru_api_url">https://myconf.guru/api/</string>
+    <string name="conference_guru_api_url">https://myconf.guru/api/</string>
     <string name="auth_token_key">authToken</string>
     <string name="invite_to_login_message">Уже зарегистрированы? Войти</string>
     <string name="title_activity_main">Конференции</string>
@@ -39,8 +39,8 @@
     <string name="navigation_bar_logout">Выйти из аккаунта</string>
     <string name="navigation_bar_settings">Настройки</string>
     <string name="navigation_bar_conferences">Поиск конференции</string>
-    <string name="conferencerow_name_string">Название конференции</string>
-    <string name="conferencerow_date_string">Дата проведения:&#160;</string>
+    <string name="conference_name_default_string">Название конференции</string>
+    <string name="conference_row_date_string">Дата проведения:&#160;</string>
 
     <string name="image_server_address">https://myconf.guru/api/images/</string>
     <string name="about_app_fragment_title">О приложении</string>
@@ -48,4 +48,19 @@
     <string name="about_app_fragment_button_text">OK</string>
     <string name="username_key">userName</string>
     <string name="username_error_value">No name</string>
+    <string name="conference_description_default_string">Описание конференции</string>
+    <string name="conference_address_default_string">Адрес конференции</string>
+    <string name="conference_date_default_string">Даты проведения конференции</string>
+    <string name="conference_speeches_default_string">Запланированные выступления:</string>
+    <string name="conference_comments_string">Комментарии:</string>
+    <string name="conference_comment_hint_default_string">Оставьте ваш комментарий тут</string>
+    <string name="conference_add_comment_string">Добавить комментарий</string>
+    <string name="comment_author_separator">" — "</string>
+    <string name="speech_date_start_string">"\nВремя проведения: "</string>
+    <string name="comment_row_default_comment_string">Комментарий</string>
+    <string name="comment_row_default_author_name_string">Автор комментария</string>
+    <string name="comment_row_default_dime_string">Время</string>
+    <string name="nav_header_user__default_name_string">User name</string>
+    <string name="speech_row_speech_information_default_string">Информация о выступлении</string>
+    <string name="speech_row_speech_time_default_string">Время проведения</string>
 </resources>

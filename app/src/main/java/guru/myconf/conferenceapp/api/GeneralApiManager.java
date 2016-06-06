@@ -14,7 +14,7 @@ public class GeneralApiManager {
     public GeneralApiManager(Context context) {
         mContext = context;
         mRetrofit = new Retrofit.Builder()
-                .baseUrl(context.getString(R.string.conferenceguru_api_url))
+                .baseUrl(context.getString(R.string.conference_guru_api_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
