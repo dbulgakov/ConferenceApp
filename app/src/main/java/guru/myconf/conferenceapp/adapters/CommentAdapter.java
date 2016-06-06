@@ -15,7 +15,7 @@ import guru.myconf.conferenceapp.entities.Comment;
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
     private ArrayList<Comment> mComments;
-    private Context mContext;
+    private final Context mContext;
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -25,7 +25,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     }
 
     public class ConferenceViewHolder extends ViewHolder {
-        TextView commentText, commentAuthor, commentTime;
+        final TextView commentText;
+        final TextView commentAuthor;
+        final TextView commentTime;
 
         public ConferenceViewHolder(View v) {
             super(v);

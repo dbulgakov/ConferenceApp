@@ -35,7 +35,7 @@ public class SpeechResponse {
     @Expose
     private User mAuthor;
 
-    private SimpleDateFormat mDateFormatter = new SimpleDateFormat("HH:mm");
+    private final SimpleDateFormat mDateFormatter = new SimpleDateFormat("HH:mm");
 
     public int getId() {
         return mId;

@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.login_button) Button mLoginButton;
     @Bind(R.id.link_register) TextView mRegisterLink;
 
-    private EventBus mBus = EventBus.getDefault();
+    private final EventBus mBus = EventBus.getDefault();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

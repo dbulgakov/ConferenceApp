@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class PostCommentRequest {
     @SerializedName("token")
-    private String mToken;
+    private final String mToken;
 
     @SerializedName("text")
-    private String mText;
+    private final String mText;
 
     public PostCommentRequest(String token, String text) {
         mToken = token;

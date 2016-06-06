@@ -39,10 +39,9 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
     private ConferenceAdapter.OnConferenceSelected mClickListener;
     private ConferenceAdapter mConferenceAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private RecyclerView mRecyclerView;
     private Context mContext;
 
-    private EventBus mBus = EventBus.getDefault();
+    private final EventBus mBus = EventBus.getDefault();
 
     public static ConferenceListFragment newInstance() {
         return new ConferenceListFragment();
@@ -58,7 +57,7 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
         if (context instanceof ConferenceAdapter.OnConferenceSelected) {
             mClickListener = (ConferenceAdapter.OnConferenceSelected) context;
         } else {
-            throw new ClassCastException(context.toString() + " OnConferenceSelected is not implemented");
+            throw new ClassCastException(context.toString() + " onConferenceSelected is not implemented");
         }
     }
 
@@ -81,7 +80,7 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
             mSwipeRefreshLayout.setOnRefreshListener(this);
             mSwipeRefreshLayout.setRefreshing(true);
 
-            mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_conferences);
+            RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_conferences);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             mRecyclerView.setHasFixedSize(true);
             mConferenceAdapter = new ConferenceAdapter(activity, new ArrayList<Conference>(), mClickListener, mSwipeRefreshLayout);
@@ -92,7 +91,7 @@ public class ConferenceListFragment extends Fragment implements SwipeRefreshLayo
         getConferences();
     }
 
-    public void getConferences() {
+    private void getConferences() {
 
         // Turning on progressbar
         mSwipeRefreshLayout.setRefreshing(true);

@@ -21,10 +21,10 @@ import guru.myconf.conferenceapp.entities.Conference;
 public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.ViewHolder> {
 
     private ArrayList<Conference> mConferences;
-    private Context mContext;
+    private final Context mContext;
     private Picasso mPicasso;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    private ConferenceAdapter.OnConferenceSelected mClickListener;
+    private final SwipeRefreshLayout mSwipeRefreshLayout;
+    private final ConferenceAdapter.OnConferenceSelected mClickListener;
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -34,8 +34,9 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
     }
 
     public class ConferenceViewHolder extends ViewHolder {
-        TextView conferenceName, conferenceDate;
-        ImageView conferenceImage;
+        final TextView conferenceName;
+        final TextView conferenceDate;
+        final ImageView conferenceImage;
 
         public ConferenceViewHolder(View v) {
             super(v);
@@ -71,7 +72,7 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mClickListener.OnConferenceSelected(mConferences.get(position).getId());
+                mClickListener.onConferenceSelected(mConferences.get(position).getId());
             }
         });
         mSwipeRefreshLayout.setRefreshing(true);
@@ -111,6 +112,6 @@ public class ConferenceAdapter extends RecyclerView.Adapter<ConferenceAdapter.Vi
     }
 
     public interface OnConferenceSelected {
-        void OnConferenceSelected(int conferenceId);
+        void onConferenceSelected(int conferenceId);
     }
 }

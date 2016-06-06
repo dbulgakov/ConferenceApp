@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName;
 public class LoginRequest {
 
     @SerializedName("username")
-    private String mUsername;
+    private final String mUsername;
 
     @SerializedName("password")
-    private String mPassword;
+    private final String mPassword;
 
     public LoginRequest(String username, String password) {
         mUsername = username;

@@ -1,8 +1,8 @@
 package guru.myconf.conferenceapp.entities;
 
 public class User {
-    private String mFirstName;
-    private String mLastName;
+    private final String mFirstName;
+    private final String mLastName;
     private int mId;
 
     public User(User user) {

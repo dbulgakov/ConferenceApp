@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Bind(R.id.password) EditText mInputPassword;
     @Bind(R.id.email) EditText mInputEmail;
 
-    private EventBus mBus = EventBus.getDefault();
+    private final EventBus mBus = EventBus.getDefault();
 
     private static final int MIN_LENGTH = 4;
     private static final int MAX_LENGTH = 30;

@@ -27,7 +27,7 @@ public class ConferenceResponse {
     @Expose
     private int mImageId;
 
-    private SimpleDateFormat mDateFormatter = new SimpleDateFormat("dd.MM");
+    private final SimpleDateFormat mDateFormatter = new SimpleDateFormat("dd.MM");
 
 
 

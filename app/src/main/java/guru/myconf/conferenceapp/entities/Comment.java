@@ -4,11 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Comment {
-    private String mText;
-    private Date mDate;
-    private User mAuthor;
+    private final String mText;
+    private final Date mDate;
+    private final User mAuthor;
 
-    private SimpleDateFormat mDateFormatter = new SimpleDateFormat("d MMMM HH:mm");
+    private final SimpleDateFormat mDateFormatter = new SimpleDateFormat("d MMMM HH:mm");
 
     public Comment(String text, Date date, User user){
         mText = text;

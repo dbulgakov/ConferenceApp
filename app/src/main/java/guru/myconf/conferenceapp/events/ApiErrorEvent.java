@@ -1,7 +1,7 @@
 package guru.myconf.conferenceapp.events;
 
 public class ApiErrorEvent {
-    private Exception mException;
+    private final Exception mException;
 
     public ApiErrorEvent(Exception exception){
         mException = exception;

@@ -14,7 +14,7 @@ import guru.myconf.conferenceapp.entities.Speech;
 public class SpeechAdapter extends RecyclerView.Adapter<SpeechAdapter.ViewHolder> {
 
     private ArrayList<Speech> mSpeeches;
-    private Context mContext;
+    private final Context mContext;
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -24,7 +24,8 @@ public class SpeechAdapter extends RecyclerView.Adapter<SpeechAdapter.ViewHolder
     }
 
     public class ConferenceViewHolder extends ViewHolder {
-        TextView speechTitle, speechTime;
+        final TextView speechTitle;
+        final TextView speechTime;
 
         public ConferenceViewHolder(View v) {
             super(v);

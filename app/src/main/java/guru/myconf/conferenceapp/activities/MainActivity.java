@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
-    public void OnConferenceSelected(int conferenceId) {
+    public void onConferenceSelected(int conferenceId) {
         Intent intent = new Intent(MainActivity.this, ConferenceInfoActivity.class);
         SaveConferenceId(conferenceId);
         startActivity(intent);

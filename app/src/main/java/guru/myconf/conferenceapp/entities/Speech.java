@@ -1,10 +1,10 @@
 package guru.myconf.conferenceapp.entities;
 
 public class Speech {
-    private int mId;
-    private String mTitle;
-    private String mAddress;
-    private String mDate;
+    private final int mId;
+    private final String mTitle;
+    private final String mAddress;
+    private final String mDate;
 
     public Speech(int id, String title, String date, String address) {
         mId = id;

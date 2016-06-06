@@ -13,7 +13,7 @@ public class ConferenceCommentsResponse extends BasicResponse{
 
     @SerializedName("comments")
     @Expose
-    private ArrayList<ConferenceComment> mComments;
+    private final ArrayList<ConferenceComment> mComments;
 
     public ArrayList<ConferenceComment> getResponseComments() {
         return mComments;

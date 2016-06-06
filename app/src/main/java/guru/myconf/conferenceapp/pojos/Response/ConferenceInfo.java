@@ -50,7 +50,7 @@ public class ConferenceInfo {
     private ArrayList<SpeechResponse> mSpeeches;
 
 
-    private SimpleDateFormat _dateFormatter = new SimpleDateFormat("dd.MM");
+    private final SimpleDateFormat _dateFormatter = new SimpleDateFormat("dd.MM");
 
     public int getId() {
         return mId;
