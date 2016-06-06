@@ -7,12 +7,6 @@
 
     <color name="colorBlack">#000000</color>
     <color name="colorCardBackground">#f3f3f4</color>
-    <color name="colorJet">#222222</color>
-    <color name="colorOil">#333333</color>
-    <color name="colorMonsoon">#777777</color>
-    <color name="colorJumbo">#888888</color>
-    <color name="colorAluminum">#999999</color>
-    <color name="colorBase">#AAAAAA</color>
     <color name="colorIron">#CCCCCC</color>
     <color name="colorWhite">#FFFFFF</color>
 </resources>

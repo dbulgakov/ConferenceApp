@@ -17,16 +17,13 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
 
-    <dimen name="conference_row_date_text_margin">30dp</dimen>
     <dimen name="conference_rows_padding">8dp</dimen>
     <dimen name="conference_row_image_size">175dp</dimen>
 
     <dimen name="text_size_large">20sp</dimen>
     <dimen name="text_size_normal">16sp</dimen>
     <dimen name="text_size_small">14sp</dimen>
-    <dimen name="conference_card_view_margin_top">40dp</dimen>
 
-    <dimen name="frame_layout_margin">50dp</dimen>
     <dimen name="conferencerow_separatior_margin">5dp</dimen>
     <dimen name="conferencerow_separatior_margin_bottom">2dp</dimen>
     <dimen name="conferencerow_separatior_height">1dp</dimen>

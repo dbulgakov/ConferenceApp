@@ -39,7 +39,6 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <include layout="@layout/activity_conference_info_bottom"
-        android:id="@+id/activity_conference_info_bottom"/>
+    <include layout="@layout/activity_conference_info_bottom" />
 
 </android.support.design.widget.CoordinatorLayout>

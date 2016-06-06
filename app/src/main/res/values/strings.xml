@@ -38,7 +38,6 @@
     <string name="navigation_bar_about">О приложении</string>
     <string name="navigation_bar_logout">Выйти из аккаунта</string>
     <string name="navigation_bar_settings">Настройки</string>
-    <string name="navigation_bar_account">Аккаунт</string>
     <string name="navigation_bar_conferences">Поиск конференции</string>
     <string name="conferencerow_name_string">Название конференции</string>
     <string name="conferencerow_date_string">Дата проведения:&#160;</string>
